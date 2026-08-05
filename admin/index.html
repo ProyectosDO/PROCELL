@@ -1,0 +1,904 @@
+<!DOCTYPE html><<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel Administrador | PROCELL</title>
+
+    <!-- =====================================================
+         TIPOGRAFÍA (misma que la tienda)
+    ====================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- =====================================================
+         TAILWIND
+    ====================================================== -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ["Manrope", "sans-serif"]
+                    },
+                    boxShadow: {
+                        soft: "0 10px 40px rgba(0,0,0,0.08)",
+                        card: "0 8px 30px rgba(0,0,0,0.06)"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: "Manrope", sans-serif; }
+    </style>
+
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+
+<!-- ===================================================== -->
+<!-- LOGIN ADMINISTRADOR -->
+<!-- ===================================================== -->
+
+<div
+    id="loginScreen"
+    class="min-h-screen flex items-center justify-center bg-gray-50 px-4"
+>
+
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-soft border border-gray-100 p-8 sm:p-10">
+
+        <!-- LOGO -->
+
+        <div class="text-center mb-8">
+
+            <div
+                class="w-20 h-20 mx-auto rounded-full overflow-hidden bg-black flex items-center justify-center shadow-lg"
+            >
+                <img
+                    src="https://zfbzmaefmaromelcpmbw.supabase.co/storage/v1/object/public/logo/WhatsApp%20Image%202026-07-30%20at%204.15.49%20PM.jpeg"
+                    alt="Logo PROCELL"
+                    class="w-16 h-16 object-contain"
+                >
+            </div>
+
+            <h1 class="text-3xl font-extrabold tracking-tight text-orange-500 mt-4">
+                PROCELL
+            </h1>
+
+            <p class="text-gray-500 mt-2 text-sm">
+                Acceso al panel administrativo
+            </p>
+
+        </div>
+
+        <!-- FORMULARIO LOGIN -->
+
+        <form id="loginForm">
+
+            <!-- CORREO -->
+
+            <div class="mb-5">
+
+                <label for="loginEmail" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Correo electrónico
+                </label>
+
+                <div class="relative flex items-center">
+
+                    <div class="absolute left-4 text-orange-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2Z"></path>
+                            <path d="m22 6-10 7L2 6"></path>
+                        </svg>
+                    </div>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        required
+                        autocomplete="email"
+                        placeholder="Ingresa tu correo"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- CONTRASEÑA -->
+
+            <div class="mb-6">
+
+                <label for="loginPassword" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Contraseña
+                </label>
+
+                <div class="relative flex items-center">
+
+                    <div class="absolute left-4 text-orange-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                    </div>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        required
+                        autocomplete="current-password"
+                        placeholder="Ingresa tu contraseña"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- BOTÓN -->
+
+            <button
+                type="submit"
+                id="loginButton"
+                class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition shadow-md"
+            >
+                Iniciar sesión
+            </button>
+
+            <!-- MENSAJE DE ERROR -->
+
+            <div id="loginMessage" class="hidden mt-4 p-3 rounded-lg text-center text-sm font-semibold"></div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- PANEL ADMINISTRATIVO PROTEGIDO -->
+<!-- ===================================================== -->
+
+<div id="adminPanel" class="hidden">
+
+<!-- ===================================================== -->
+<!-- ENCABEZADO -->
+<!-- ===================================================== -->
+
+<header class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-40">
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="flex items-center justify-between h-24">
+
+            <!-- LOGO + MARCA -->
+
+            <div class="flex items-center gap-4">
+
+                <div class="w-14 h-14 rounded-full overflow-hidden bg-black flex items-center justify-center shadow-md flex-shrink-0">
+                    <img
+                        src="https://zfbzmaefmaromelcpmbw.supabase.co/storage/v1/object/public/logo/WhatsApp%20Image%202026-07-30%20at%204.15.49%20PM.jpeg"
+                        alt="Logo PROCELL"
+                        class="w-11 h-11 object-contain"
+                    >
+                </div>
+
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight text-orange-500 leading-none">
+                        PROCELL
+                    </h1>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-1">
+                        Panel de administración
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- CERRAR SESIÓN -->
+
+            <button
+                type="button"
+                id="logoutButton"
+                class="bg-orange-50 hover:bg-orange-100 text-orange-600 px-4 sm:px-5 py-2.5 rounded-xl font-semibold transition text-sm sm:text-base"
+            >
+                Cerrar sesión
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ===================================================== -->
+<!-- MENÚ DE NAVEGACIÓN DEL PANEL ADMINISTRATIVO -->
+<!-- ===================================================== -->
+
+<nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-24 z-30 border-t border-gray-100">
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+
+        <div class="grid grid-cols-3 gap-3">
+
+            <!-- AGREGAR PRODUCTO -->
+
+            <button
+                type="button"
+                onclick="document.getElementById('addProductSection').scrollIntoView({ behavior: 'smooth', block: 'start' })"
+                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-3 px-3 rounded-xl transition"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
+                    <path d="m3.3 7 8.7 5 8.7-5"></path>
+                    <path d="M12 22V12"></path>
+                </svg>
+                <span class="text-xs sm:text-sm">Agregar producto</span>
+            </button>
+
+            <!-- ACTUALIZAR PRODUCTO -->
+
+            <button
+                type="button"
+                onclick="document.getElementById('adminProductsList').scrollIntoView({ behavior: 'smooth' })"
+                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-3 px-3 rounded-xl transition"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
+                </svg>
+                <span class="text-xs sm:text-sm">Actualizar producto</span>
+            </button>
+
+            <!-- CATEGORÍAS -->
+
+            <button
+                type="button"
+                onclick="window.scrollTo({ top: document.getElementById('categoriesSection').offsetTop - 140, behavior: 'smooth' })"
+                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-3 px-3 rounded-xl transition"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path>
+                </svg>
+                <span class="text-xs sm:text-sm">Categorías</span>
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ===================================================== -->
+<!-- CONTENIDO PRINCIPAL -->
+<!-- ===================================================== -->
+
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- ================================================= -->
+    <!-- TÍTULO FORMULARIO PRODUCTO -->
+    <!-- ================================================= -->
+
+    <div id="addProductSection" class="mb-6 scroll-mt-48">
+        <h2 id="formTitle" class="text-2xl font-extrabold text-gray-900">
+            Agregar nuevo producto
+        </h2>
+        <p class="text-gray-500 mt-1">
+            Completa la información del producto y agrega hasta 3 imágenes.
+        </p>
+    </div>
+
+    <!-- ================================================= -->
+    <!-- FORMULARIO PRODUCTO -->
+    <!-- ================================================= -->
+
+    <form id="productForm" class="mb-16">
+
+        <!-- ================================================= -->
+        <!-- INFORMACIÓN DEL PRODUCTO -->
+        <!-- ================================================= -->
+
+        <div class="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 mb-6">
+
+            <h3 class="text-lg font-bold text-orange-500 mb-5">
+                Información del producto
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                <!-- NOMBRE -->
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Nombre del producto *
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        required
+                        placeholder="Ej: iPhone 15 Pro Max"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+                </div>
+
+                <!-- MARCA -->
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Marca
+                    </label>
+                    <input
+                        type="text"
+                        id="brand"
+                        placeholder="Ej: Apple"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+                </div>
+
+                <!-- MODELO -->
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Modelo
+                    </label>
+                    <input
+                        type="text"
+                        id="model"
+                        placeholder="Ej: A3094"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+                </div>
+
+                <!-- CATEGORÍA DINÁMICA -->
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Categoría *
+                    </label>
+                    <select
+                        id="category"
+                        required
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+                        <option value="">Cargando categorías...</option>
+                    </select>
+                </div>
+
+                <!-- PRECIO -->
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Precio *
+                    </label>
+                    <input
+                        type="number"
+                        id="price"
+                        min="0"
+                        required
+                        placeholder="Ej: 2500000"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+                </div>
+
+                <!-- STOCK -->
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Cantidad disponible *
+                    </label>
+                    <input
+                        type="number"
+                        id="stock"
+                        min="0"
+                        value="1"
+                        required
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+                </div>
+
+            </div>
+
+            <!-- ================================================= -->
+            <!-- DESCRIPCIÓN -->
+            <!-- ================================================= -->
+
+            <div class="mt-5">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Descripción
+                </label>
+                <textarea
+                    id="description"
+                    rows="4"
+                    placeholder="Escribe una descripción del producto..."
+                    class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                ></textarea>
+            </div>
+
+            <!-- ================================================= -->
+            <!-- CARACTERÍSTICAS -->
+            <!-- ================================================= -->
+
+            <div class="mt-5">
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Características específicas
+                </label>
+                <textarea
+                    id="specifications"
+                    rows="4"
+                    placeholder="Ej: 256 GB, 8 GB RAM, Cámara de 48 MP..."
+                    class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                ></textarea>
+            </div>
+
+            <!-- ================================================= -->
+            <!-- PRODUCTO ACTIVO -->
+            <!-- ================================================= -->
+
+            <div class="mt-5 flex items-center gap-3">
+                <input type="checkbox" id="is_active" checked class="w-5 h-5 accent-orange-500">
+                <label for="is_active" class="text-sm font-semibold text-gray-700">
+                    Mostrar este producto en el catálogo
+                </label>
+            </div>
+
+        </div>
+
+        <!-- ================================================= -->
+        <!-- IMÁGENES -->
+        <!-- ================================================= -->
+
+        <div class="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 mb-6">
+
+            <h3 class="text-lg font-bold text-orange-500 mb-2">
+                Imágenes del producto
+            </h3>
+
+            <p class="text-sm text-gray-500 mb-5">
+                Puedes seleccionar hasta 3 imágenes. Las imágenes se optimizarán antes de subirlas.
+            </p>
+
+            <!-- SELECTOR -->
+
+            <label
+                for="images"
+                class="cursor-pointer flex flex-col items-center justify-center gap-3 border-2 border-dashed border-orange-300 rounded-2xl p-8 text-center hover:bg-orange-50 transition"
+            >
+                <div class="w-14 h-14 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2Z"></path>
+                        <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                </div>
+                <p class="font-semibold text-orange-600">Seleccionar imágenes</p>
+                <p class="text-sm text-gray-500 -mt-2">Máximo 3 imágenes</p>
+            </label>
+
+            <input type="file" id="images" accept="image/*" multiple class="hidden">
+
+            <!-- VISTA PREVIA -->
+
+            <div id="imagePreview" class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6"></div>
+
+        </div>
+
+        <!-- ================================================= -->
+        <!-- BOTÓN GUARDAR -->
+        <!-- ================================================= -->
+
+        <div class="bg-white rounded-2xl shadow-soft border border-gray-100 p-6">
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+                <!-- BOTÓN GUARDAR / ACTUALIZAR -->
+
+                <button
+                    type="submit"
+                    id="saveButton"
+                    class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition shadow-md"
+                >
+                    Guardar producto
+                </button>
+
+                <!-- BOTÓN CANCELAR EDICIÓN -->
+
+                <button
+                    type="button"
+                    id="cancelEditButton"
+                    onclick="cancelarEdicion()"
+                    class="hidden w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl transition"
+                >
+                    Cancelar edición
+                </button>
+
+            </div>
+
+            <!-- MENSAJE -->
+
+            <div id="message" class="hidden mt-4 p-4 rounded-lg text-center font-semibold"></div>
+
+        </div>
+
+    </form>
+
+    <!-- ================================================= -->
+    <!-- GESTIÓN DE CATEGORÍAS -->
+    <!-- ================================================= -->
+
+    <div id="categoriesSection" class="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 mb-16 scroll-mt-48">
+
+        <div class="mb-5">
+            <h2 class="text-2xl font-extrabold text-gray-900">
+                Gestión de categorías
+            </h2>
+            <p class="text-gray-500 mt-1">
+                Agrega, modifica o elimina las categorías de tus productos.
+            </p>
+        </div>
+
+        <!-- FORMULARIO CATEGORÍA -->
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <div class="md:col-span-2">
+                <label for="categoryName" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Nombre de la categoría
+                </label>
+                <input
+                    type="text"
+                    id="categoryName"
+                    placeholder="Ej: Celulares, Accesorios, Tablets..."
+                    class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                >
+            </div>
+
+            <div class="flex items-end">
+                <button
+                    type="button"
+                    id="addCategoryButton"
+                    class="w-full flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2.5 rounded-xl transition shadow-md"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    <span>Agregar categoría</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- ID DE EDICIÓN OCULTO -->
+
+        <input type="hidden" id="editingCategoryId" value="">
+
+        <!-- BOTÓN CANCELAR EDICIÓN -->
+
+        <div id="cancelCategoryEditContainer" class="hidden mt-4">
+            <button
+                type="button"
+                id="cancelCategoryEditButton"
+                class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-5 py-2.5 rounded-xl transition"
+            >
+                Cancelar edición
+            </button>
+        </div>
+
+        <!-- MENSAJE CATEGORÍA -->
+
+        <div id="categoryMessage" class="hidden mt-4 p-4 rounded-lg text-center font-semibold"></div>
+
+        <!-- LISTA DE CATEGORÍAS -->
+
+        <div class="mt-8">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">
+                Categorías registradas
+            </h3>
+
+            <div id="categoriesList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+                <div class="col-span-full text-center py-8">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-orange-50 text-orange-400 flex items-center justify-center mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-500">Cargando categorías...</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- PRODUCTOS REGISTRADOS -->
+    <!-- ===================================================== -->
+
+    <div class="mt-16">
+
+        <!-- TÍTULO -->
+
+        <div class="mb-6">
+            <h2 class="text-2xl font-extrabold text-gray-900">
+                Productos registrados
+            </h2>
+            <p class="text-gray-500 mt-1">
+                Administra los productos de tu catálogo.
+            </p>
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- BUSCADOR Y FILTROS DE PRODUCTOS -->
+        <!-- ===================================================== -->
+
+        <div class="bg-white rounded-2xl shadow-soft border border-gray-100 p-5 sm:p-6 mb-6">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                <!-- BUSCADOR -->
+
+                <div class="md:col-span-2">
+
+                    <label for="productSearch" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Buscar producto
+                    </label>
+
+                    <div class="relative flex items-center">
+
+                        <div class="absolute left-4 text-orange-500">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </div>
+
+                        <input
+                            type="text"
+                            id="productSearch"
+                            placeholder="Buscar por nombre, marca o modelo..."
+                            autocomplete="off"
+                            class="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- FILTRO CATEGORÍA -->
+
+                <div>
+                    <label for="productCategoryFilter" class="block text-sm font-semibold text-gray-700 mb-2">
+                        Filtrar por categoría
+                    </label>
+                    <select
+                        id="productCategoryFilter"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3.5 outline-none focus:ring-2 focus:ring-orange-500/30 focus:border-orange-500 transition text-sm sm:text-base"
+                    >
+                        <option value="">Todas las categorías</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- CONTADOR -->
+
+            <div id="productResultsInfo" class="mt-4 text-sm text-gray-500">
+                Cargando productos...
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- TABLA DE PRODUCTOS -->
+        <!-- ===================================================== -->
+
+        <div class="bg-white rounded-2xl shadow-soft border border-gray-100 overflow-hidden">
+
+            <!-- CONTENEDOR RESPONSIVE -->
+
+            <div class="overflow-x-auto admin-scroll">
+
+                <table class="w-full min-w-[900px] text-left">
+
+                    <!-- ENCABEZADO -->
+
+                    <thead class="bg-gray-50 border-b border-gray-100">
+                        <tr>
+                            <th class="px-4 py-4 text-xs font-bold text-gray-500 uppercase tracking-wide">Producto</th>
+                            <th class="px-4 py-4 text-xs font-bold text-gray-500 uppercase tracking-wide">Categoría</th>
+                            <th class="px-4 py-4 text-xs font-bold text-gray-500 uppercase tracking-wide">Precio</th>
+                            <th class="px-4 py-4 text-xs font-bold text-gray-500 uppercase tracking-wide text-center">Stock</th>
+                            <th class="px-4 py-4 text-xs font-bold text-gray-500 uppercase tracking-wide">Estado</th>
+                            <th class="px-4 py-4 text-xs font-bold text-gray-500 uppercase tracking-wide">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <!-- PRODUCTOS -->
+
+                    <tbody id="adminProductsList" class="divide-y divide-gray-100">
+                        <tr>
+                            <td colspan="6" class="px-4 py-12 text-center text-gray-500">
+                                Cargando productos...
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- PAGINACIÓN -->
+        <!-- ===================================================== -->
+
+        <div id="productPagination" class="flex flex-wrap justify-center items-center gap-2 mt-8"></div>
+
+    </div>
+
+</main>
+
+</div>
+
+<!-- FIN DEL PANEL ADMINISTRATIVO PROTEGIDO -->
+
+<!-- ===================================================== -->
+<!-- SUPABASE -->
+<!-- ===================================================== -->
+
+
+          </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+     </div>
+
+
+   <!-- ===================================================== -->
+   <!-- PAGINACIÓN -->
+   <!-- ===================================================== -->
+
+   <div
+       id="productPagination"
+       class="flex flex-wrap justify-center items-center gap-2 mt-8"
+   >
+   </div>
+
+            <!-- Los productos aparecerán aquí -->
+
+
+        </div>
+
+    </div>
+
+
+</main>
+
+</div>
+
+<!-- FIN DEL PANEL ADMINISTRATIVO PROTEGIDO -->
+
+<!-- ===================================================== -->
+<!-- SUPABASE -->
+<!-- ===================================================== -->
+
+
+          </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+     </div>
+
+
+   <!-- ===================================================== -->
+   <!-- PAGINACIÓN -->
+   <!-- ===================================================== -->
+
+   <div
+       id="productPagination"
+       class="flex flex-wrap justify-center items-center gap-2 mt-8"
+   >
+   </div>
+
+            <!-- Los productos aparecerán aquí -->
+
+
+        </div>
+
+    </div>
+
+
+</main>
+
+</div>
+
+<!-- FIN DEL PANEL ADMINISTRATIVO PROTEGIDO -->
+
+<!-- ===================================================== -->
+<!-- SUPABASE -->
+<!-- ===================================================== -->
+
+
+          </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+     </div>
+
+
+   <!-- ===================================================== -->
+   <!-- PAGINACIÓN -->
+   <!-- ===================================================== -->
+
+   <div
+       id="productPagination"
+       class="flex flex-wrap justify-center items-center gap-2 mt-8"
+   >
+   </div>
+
+            <!-- Los productos aparecerán aquí -->
+
+
+        </div>
+
+    </div>
+
+
+</main>
+
+</div>
+
+<!-- FIN DEL PANEL ADMINISTRATIVO PROTEGIDO -->
+
+<!-- ===================================================== -->
+<!-- SUPABASE -->
+<!-- ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<!-- CONFIGURACIÓN -->
+
+<script src="js/config.js"></script>
+
+<script src="js/auth.js"></script>
+
+<!-- ADMINISTRACIÓN DE PRODUCTOS Y CATEGORÍAS -->
+
+
+<script src="js/admin-products.js"></script>
+
+ <script src="js/session-timeout.js"></script>
+</body>
+
+</html>

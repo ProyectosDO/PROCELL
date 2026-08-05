@@ -1,0 +1,48 @@
+/* =====================================================
+   PROCELL ADMIN - ESTILOS COMPARTIDOS CON LA TIENDA
+====================================================== */
+
+.search-active {
+    animation: searchPulse 0.5s ease;
+}
+
+@keyframes searchPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.015); }
+    100% { transform: scale(1); }
+}
+
+.category-button {
+    transition: all 0.25s ease;
+}
+
+.category-button:hover {
+    transform: translateY(-2px);
+}
+
+.admin-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #fb923c transparent;
+}
+
+.admin-scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.admin-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.admin-scroll::-webkit-scrollbar-thumb {
+    background: #fb923c;
+    border-radius: 20px;
+}
+
+.result-message {
+    animation: resultAppear 0.35s ease;
+}
+
+@keyframes resultAppear {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
