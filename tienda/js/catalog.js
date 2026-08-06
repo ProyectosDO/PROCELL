@@ -1375,11 +1375,11 @@ async function cargarCategorias() {
 
             text-white
 
-            px-4
+            px-2
 
-            py-2
-
-            rounded-xl
+            py-1
+             text-sm
+            rounded-lg
 
             font-semibold
 
@@ -1421,30 +1421,25 @@ async function cargarCategorias() {
 
 
                 boton.className = `
+    category-button
+    bg-white
+    text-gray-700
+    border
+    border-gray-200
+    hover:border-orange-500
+    hover:text-orange-500
+    active:bg-orange-500
+    active:text-white
+    focus:bg-orange-500
+    focus:text-white
+    px-2
+    py-1
+    text-sm
+    rounded-lg
 
-                    category-button
-
-                    bg-white
-
-                    border
-
-                    border-gray-200
-
-                    hover:border-orange-500
-
-                    hover:text-orange-500
-
-                    px-4
-
-                    py-2
-
-                    rounded-xl
-
-                    font-semibold
-
-                    transition
-
-                `;
+    font-semibold
+    transition
+`;
 
 
                 boton.textContent =
