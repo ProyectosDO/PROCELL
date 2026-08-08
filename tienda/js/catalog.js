@@ -634,7 +634,8 @@ function crearTarjetaProducto(
 
         class="
             w-full
-            aspect-square
+            h-28
+            sm:h-56
             flex
             items-center
             justify-center
@@ -656,9 +657,8 @@ function crearTarjetaProducto(
     w-full
     h-full
     object-contain
-    p-2
-    sm:p-4
-    sm:group-hover:scale-110
+    scale-110
+    sm:group-hover:scale-125
     transition
     duration-500
     cursor-pointer
@@ -680,7 +680,8 @@ function crearTarjetaProducto(
 
                 class="
                     w-full
-                    aspect-square
+                    h-28
+                    sm:h-64
                     flex
                     items-center
                     justify-center
@@ -721,7 +722,26 @@ function crearTarjetaProducto(
 
         stockHTML = `
 
-            
+            <span
+
+                class="
+                    bg-green-100
+                    text-green-700
+                    px-2
+                    py-0.5
+                    sm:px-3
+                    sm:py-1
+                    rounded-full
+                    text-[10px]
+                    sm:text-xs
+                    font-semibold
+                "
+
+            >
+
+                Disponible
+
+            </span>
 
         `;
 
@@ -782,59 +802,9 @@ function crearTarjetaProducto(
 
 
 
-            <!-- BOTÓN + RÁPIDO -->
+                ${stockHTML}
 
-            <button
-
-                class="
-                    add-to-cart
-                    absolute
-                    top-2
-                    right-2
-                    sm:top-4
-                    sm:right-4
-                    w-7
-                    h-7
-                    sm:w-10
-                    sm:h-10
-                    flex
-                    items-center
-                    justify-center
-                    bg-white
-                    sm:bg-orange-500
-                    text-orange-500
-                    sm:text-white
-                    hover:bg-orange-500
-                    hover:text-white
-                    active:bg-orange-500
-                    active:text-white
-                    rounded-full
-                    text-base
-                    sm:text-xl
-                    font-bold
-                    leading-none
-                    shadow-md
-                    transition
-                    disabled:bg-gray-200
-                    disabled:text-gray-400
-                    disabled:cursor-not-allowed
-                "
-
-                title="Agregar al carrito"
-
-                data-id="${producto.id}"
-
-                ${
-                    stock <= 0
-                        ? "disabled"
-                        : ""
-                }
-
-            >
-
-                +
-
-            </button>
+            </div>
 
         </div>
 
@@ -843,7 +813,7 @@ function crearTarjetaProducto(
 
            <div
            class="
-           p-2.5
+           p-3
            sm:p-5
            flex
            flex-col
@@ -856,10 +826,10 @@ function crearTarjetaProducto(
                <p
                   class="
                   text-orange-500
-                  text-[10px]
+                  text-[11px]
                   sm:text-sm
                   font-semibold
-                    h-3.5
+                    h-4
                     sm:h-5
                     truncate
                     "
@@ -873,7 +843,7 @@ function crearTarjetaProducto(
             <h3
 
                 class="
-                    text-[13px]
+                    text-xs
                     sm:text-lg
                     font-bold
                     text-gray-800
@@ -883,7 +853,7 @@ function crearTarjetaProducto(
                     transition
                     line-clamp-2
                     leading-snug
-                    min-h-[2.1em]
+                    min-h-[2.2em]
                     sm:min-h-0
                 "
 
@@ -900,12 +870,11 @@ function crearTarjetaProducto(
 
               <p
                   class="
-                      text-[10px]
+                      text-[11px]
                       sm:text-sm
                     text-gray-500
-                     mt-0.5
-                     sm:mt-1
-                        h-3.5
+                     mt-1
+                        h-4
                         sm:h-5
                         truncate
                       "
@@ -918,11 +887,11 @@ function crearTarjetaProducto(
             <p
 
                 class="
-                    text-[15px]
+                    text-base
                     sm:text-2xl
                     font-extrabold
                     text-orange-500
-                    mt-1.5
+                    mt-2
                     sm:mt-4
                 "
 
@@ -935,37 +904,100 @@ function crearTarjetaProducto(
             </p>
 
 
-            <!-- BOTÓN COMPRAR -->
+            <!-- BOTONES -->
 
-            <button
+            <div
+            class="
+             flex
+             items-center
+              gap-2
+              sm:gap-3
+              mt-3
+              sm:mt-auto
+              "
+              >
 
-                class="
-                    buy-product
-                    w-full
-                    h-8
-                    sm:h-12
-                    mt-2
-                    sm:mt-4
-                    bg-gray-900
-                    hover:bg-orange-500
-                    active:bg-orange-500
-                    text-white
-                    rounded-lg
-                    sm:rounded-xl
-                    font-semibold
-                    sm:font-bold
-                    text-[11px]
-                    sm:text-base
-                    transition
-                "
 
-                data-id="${producto.id}"
+                <!-- BOTÓN + -->
 
-            >
+                <button
 
-                Ver producto
+                    class="
+                        add-to-cart
+                        w-9
+                        h-9
+                        sm:w-12
+                        sm:h-12
+                        flex-shrink-0
+                        flex
+                        items-center
+                        justify-center
+                        bg-orange-500
+                        hover:bg-orange-600
+                        active:bg-orange-600
+                        text-white
+                        rounded-lg
+                        sm:rounded-xl
+                        text-lg
+                        sm:text-2xl
+                        font-bold
+                        transition
+                        shadow-sm
+                        disabled:bg-gray-300
+                        disabled:cursor-not-allowed
+                    "
 
-            </button>
+                    title="Agregar al carrito"
+
+                    data-id="${producto.id}"
+
+                    ${
+                        stock <= 0
+                            ? "disabled"
+                            : ""
+                    }
+
+                >
+
+                    +
+
+                </button>
+
+
+                <!-- BOTÓN COMPRAR -->
+
+                <button
+
+                    class="
+                        buy-product
+                        flex-1
+                        h-9
+                        sm:h-12
+                        bg-gray-900
+                        hover:bg-orange-500
+                        active:bg-orange-500
+                        text-white
+                        rounded-lg
+                        sm:rounded-xl
+                        font-bold
+                        text-[10px]
+                        sm:text-base
+                        tracking-tight
+                        sm:tracking-normal
+                        uppercase
+                        transition
+                        px-1
+                    "
+
+                    data-id="${producto.id}"
+
+                >
+
+                    Ver producto
+
+                </button>
+
+            </div>
 
         </div>
 
