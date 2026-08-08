@@ -780,19 +780,7 @@ function crearTarjetaProducto(
 
             <!-- DISPONIBILIDAD -->
 
-            <div
-                class="
-                    absolute
-                    top-2
-                    left-2
-                    sm:top-4
-                    sm:left-4
-                "
-            >
-
-                ${stockHTML}
-
-            </div>
+           
 
 
             <!-- BOTÓN + RÁPIDO -->
