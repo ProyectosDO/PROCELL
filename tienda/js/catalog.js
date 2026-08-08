@@ -805,7 +805,7 @@ function crearTarjetaProducto(
 
            <div
            class="
-           p-5
+           p-4
            flex
            flex-col
            h-64
@@ -832,7 +832,7 @@ function crearTarjetaProducto(
             <h3
 
                 class="
-                    text-lg
+                    text-3x1
                     font-bold
                     text-gray-800
                     mt-1
@@ -868,7 +868,7 @@ function crearTarjetaProducto(
             <p
 
                 class="
-                    text-2xl
+                    text-xl
                     font-extrabold
                     text-orange-500
                     mt-4
@@ -901,8 +901,8 @@ function crearTarjetaProducto(
 
                     class="
                         add-to-cart
-                        w-12
-                        h-12
+                        w-10
+                        h-10
                         flex
                         items-center
                         justify-center
@@ -940,12 +940,12 @@ function crearTarjetaProducto(
                     class="
                         buy-product
                         flex-1
-                        h-12
+                        h-10
                         bg-gray-900
                         hover:bg-orange-500
                         text-white
                         rounded-xl
-                        font-bold
+                        text-sm font-bold
                         transition
                     "
 
