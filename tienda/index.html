@@ -1200,7 +1200,7 @@
         class="
             absolute
             inset-0
-            bg-black/60
+            bg-black/30
         "
     ></div>
 
@@ -1217,7 +1217,7 @@
         mx-auto
         px-4
         sm:px-6
-        lg:px-7
+        lg:px-8
     "
 >
 
@@ -1249,19 +1249,19 @@
                     bg-white/15
                     border
                     border-white/20
-                    px-3
-                    py-1
+                    px-4
+                    py-2
                     rounded-full
-                    text-xs
+                    text-sm
                     font-semibold
-                    mb-10
+                    mb-6
                 "
             >
 
                 <span
                     class="
-                        w-1
-                        h-1
+                        w-2
+                        h-2
                         rounded-full
                         bg-white
                     "
@@ -1298,8 +1298,8 @@
 
             <p
                 class="
-                    mt-2
-                    text-
+                    mt-6
+                    text-lg
                     text-orange-50
                     max-w-xl
                     leading-relaxed
@@ -1314,13 +1314,59 @@
 
             <div
                 class="
-                    mt-10
+                    mt-8
                     flex
                     flex-wrap
                     gap-4
                 "
             >
 
+                <a
+                    href="#productos"
+                    class="
+                        inline-flex
+                        items-center
+                        gap-2
+                        bg-white
+                        text-orange-600
+                        hover:bg-orange-50
+                        px-7
+                        py-4
+                        rounded-xl
+                        font-bold
+                        transition
+                        shadow-xl
+                    "
+                >
+
+                    Ver productos
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+
+                        <line
+                            x1="5"
+                            y1="12"
+                            x2="19"
+                            y2="12"
+                        />
+
+                        <polyline
+                            points="12 5 19 12 12 19"
+                        />
+
+                    </svg>
+
+                </a>
 
             </div>
 
@@ -1333,7 +1379,7 @@
                         class="
                             absolute
                             bottom-6
-                            right-4
+                            right-7
                             flex
                             gap-2
                         "
@@ -1404,7 +1450,7 @@
 <section
     class="
         relative
-        -mt-7
+        -mt-8
         z-10
     "
 >
@@ -1425,7 +1471,7 @@
             bg-white
             rounded-2xl
             shadow-soft
-            p-2
+            p-3
             border
             border-gray-100
             transition
@@ -1447,7 +1493,7 @@
             <div
                 class="
                     absolute
-                    left-4
+                    left-5
                     text-orange-500
                 "
             >
@@ -1497,7 +1543,7 @@
                     rounded-xl
                     pl-14
                     pr-5
-                    py-2
+                    py-4
                     outline-none
                     focus:ring-2
                     focus:ring-orange-500/30
@@ -1586,7 +1632,7 @@
 <section
     id="categorias"
     class="
-        py-8
+        py-16
         sm:py-20
     "
 >
@@ -1596,7 +1642,7 @@
     class="
         max-w-7xl
         mx-auto
-        px-2
+        px-4
         sm:px-6
         lg:px-8
     "
@@ -1608,7 +1654,7 @@
     <div
         class="
             text-center
-            mb-3
+            mb-10
         "
     >
 
@@ -1622,14 +1668,15 @@
             "
         >
 
-            CATEGORIAS
+            Categorías
 
         </span>
 
-                <h2
+
+        <h2
             class="
-                text-2xl
-                sm:text-2xl
+                text-3xl
+                sm:text-4xl
                 font-extrabold
                 mt-2
                 tracking-tight
@@ -1639,9 +1686,6 @@
             Explora nuestros productos
 
         </h2>
-
-
-
 
 
     </div>
@@ -1683,19 +1727,6 @@
                 Cargando categorías...
 
             </div>
-            <h2
-                class="
-                    text-1xl
-                    sm:text-4xl
-                    font-extrabold
-                    mt-2
-                    tracking-tight
-                "
-            >
-
-                NUESTROS PRODUCTOS
-
-            </h2>
 
         </div>
 
@@ -1723,7 +1754,7 @@
     class="
         max-w-7xl
         mx-auto
-        px-8
+        px-4
         sm:px-6
         lg:px-8
     "
@@ -1739,7 +1770,7 @@
             sm:flex-row
             sm:items-end
             sm:justify-between
-            gap-2
+            gap-4
             mb-10
         "
     >
@@ -1757,22 +1788,22 @@
                 "
             >
 
-                Catálogo
+                Nuestro catálogo
 
             </span>
 
 
             <h2
                 class="
-                    text-2xl
-                sm:text-2xl
-                font-extrabold
-                mt-2
-                tracking-tight
+                    text-3xl
+                    sm:text-4xl
+                    font-extrabold
+                    mt-2
+                    tracking-tight
                 "
             >
 
-             Productos Procell
+                Productos
 
             </h2>
 
@@ -1804,9 +1835,11 @@
             grid
             grid-cols-2
             sm:grid-cols-2
+            md:grid-cols-3
             lg:grid-cols-3
             xl:grid-cols-4
-            gap-6
+            gap-3
+            sm:gap-6
         "
     >
 
@@ -2269,26 +2302,26 @@
 
 <div
     id="productModal"
-    class="hidden fixed inset-0 z-50 bg-black/70 p-4 overflow-y-auto"
+    class="hidden fixed inset-0 z-50 bg-black/70 sm:p-4 overflow-y-auto"
 >
 
     <div
-        class="min-h-full flex items-center justify-center"
+        class="min-h-full flex items-start sm:items-center justify-center"
     >
 
         <div
-            class="bg-white rounded-3xl max-w-5xl w-full overflow-hidden shadow-2xl"
+            class="bg-white rounded-none sm:rounded-3xl max-w-5xl w-full min-h-screen sm:min-h-0 overflow-hidden shadow-2xl"
         >
 
             <!-- CERRAR -->
 
             <div
-                class="flex justify-end p-4"
+                class="sticky top-0 z-10 bg-white/95 backdrop-blur-sm flex justify-end p-3 sm:p-4"
             >
 
                 <button
                     id="closeModal"
-                    class="w-10 h-10 rounded-full bg-gray-100 hover:bg-orange-100 text-gray-700 hover:text-orange-500 text-xl transition"
+                    class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gray-100 hover:bg-orange-100 text-gray-700 hover:text-orange-500 text-lg sm:text-xl transition"
                 >
                     ×
                 </button>
@@ -2299,7 +2332,7 @@
             <!-- CONTENIDO -->
 
             <div
-                class="grid lg:grid-cols-2 gap-8 px-6 pb-8"
+                class="grid lg:grid-cols-2 gap-6 sm:gap-8 px-4 sm:px-6 pb-8"
             >
 
                 <!-- GALERÍA -->
@@ -2307,14 +2340,14 @@
                 <div>
 
                     <div
-                        class="bg-gray-100 rounded-2xl overflow-hidden"
+                        class="bg-gray-100 rounded-xl sm:rounded-2xl overflow-hidden"
                     >
 
                         <img
                             id="modalMainImage"
                             src=""
                             alt=""
-                            class="w-full h-96 object-contain"
+                            class="w-full h-64 sm:h-96 object-contain"
                         >
 
                     </div>
@@ -2324,7 +2357,7 @@
 
                     <div
                         id="modalThumbnails"
-                        class="flex gap-3 mt-4 overflow-x-auto"
+                        class="flex gap-2 sm:gap-3 mt-3 sm:mt-4 overflow-x-auto"
                     >
                     </div>
 
@@ -2337,41 +2370,41 @@
 
                     <p
                         id="modalBrand"
-                        class="text-orange-500 font-semibold"
+                        class="text-orange-500 font-semibold text-sm sm:text-base"
                     >
                     </p>
 
 
                     <h2
                         id="modalName"
-                        class="text-xl md:text-2xl font-extrabold mt-1 text-gray-900"
+                        class="text-xl sm:text-3xl font-extrabold mt-1 sm:mt-2 text-gray-900 leading-snug"
                     >
                     </h2>
 
 
                     <p
                         id="modalModel"
-                        class="text-gray-500 mt-2"
+                        class="text-gray-500 mt-1 sm:mt-2 text-sm sm:text-base"
                     >
                     </p>
 
 
-                    <div class="mt-3">
+                    <div class="mt-3 sm:mt-6">
 
                         <span
                             id="modalPrice"
-                            class="text-xl font-extrabold text-orange-500"
+                            class="text-2xl sm:text-3xl font-extrabold text-orange-500"
                         >
                         </span>
 
                     </div>
 
 
-                    <div class="mt-4">
+                    <div class="mt-2 sm:mt-4">
 
                         <span
                             id="modalStock"
-                            class="inline-block bg-green-100 text-green-700 px-2 py-1 rounded-lg text-xs font-semibold"
+                            class="inline-block bg-green-100 text-green-700 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold"
                         >
                         </span>
 
@@ -2379,13 +2412,13 @@
 
 
                     <div
-                        class="border-t border-gray-200 my-3"
+                        class="border-t border-gray-200 my-4 sm:my-6"
                     >
                     </div>
 
 
                     <h3
-                        class="font-bold text-lg"
+                        class="font-bold text-base sm:text-lg"
                     >
                         Descripción
                     </h3>
@@ -2393,13 +2426,13 @@
 
                     <p
                         id="modalDescription"
-                        class="text-gray-600 mt-3 leading-relaxed"
+                        class="text-gray-600 mt-2 sm:mt-3 text-sm sm:text-base leading-relaxed"
                     >
                     </p>
 
 
                     <h3
-                        class="font-bold text-lg mt-6"
+                        class="font-bold text-base sm:text-lg mt-5 sm:mt-6"
                     >
                         Características
                     </h3>
@@ -2407,7 +2440,7 @@
 
                     <p
                         id="modalSpecifications"
-                        class="text-gray-600 mt-3 whitespace-pre-line"
+                        class="text-gray-600 mt-2 sm:mt-3 text-sm sm:text-base whitespace-pre-line"
                     >
                     </p>
 
@@ -2416,7 +2449,7 @@
 
                     <button
                         id="modalAddToCart"
-                        class="mt-5 w-full flex items-center justify-center gap-3 bg-orange-500 hover:bg-orange-600 text-white px-6 py-4 rounded-xl font-bold transition shadow-lg"
+                        class="mt-6 sm:mt-8 w-full flex items-center justify-center gap-2 sm:gap-3 bg-orange-500 hover:bg-orange-600 active:bg-orange-600 text-white px-6 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base transition shadow-lg"
                     >
 
                         <svg
@@ -2446,7 +2479,7 @@
                         id="modalWhatsApp"
                         href="#"
                         target="_blank"
-                        class="mt-3 w-full flex items-center justify-center gap-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-50 px-6 py-4 rounded-xl font-bold transition"
+                        class="mt-3 w-full flex items-center justify-center gap-2 sm:gap-3 border-2 border-orange-500 text-orange-500 hover:bg-orange-50 px-6 py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base transition"
                     >
 
                         Comprar por WhatsApp
