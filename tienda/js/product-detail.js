@@ -144,7 +144,7 @@ function abrirDetalleProducto(producto) {
         "Disponible";
 
     modalStock.className =
-        "inline-block bg-green-100 text-green-700 px-3 py-2 rounded-lg text-sm font-semibold";
+        "inline-block bg-green-100 text-green-700 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold";
 
     }
 
@@ -156,7 +156,7 @@ function abrirDetalleProducto(producto) {
 
         modalStock.className =
 
-            "inline-block bg-red-100 text-red-700 px-3 py-2 rounded-lg text-sm font-semibold";
+            "inline-block bg-red-100 text-red-700 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold";
 
     }
 
@@ -224,7 +224,7 @@ function abrirDetalleProducto(producto) {
 
                 thumbnail.className =
 
-                    "flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 border-gray-200 hover:border-orange-500 transition";
+                    "flex-shrink-0 w-14 h-14 sm:w-20 sm:h-20 rounded-lg sm:rounded-xl overflow-hidden border-2 border-gray-200 hover:border-orange-500 transition";
 
 
                 thumbnail.innerHTML = `
