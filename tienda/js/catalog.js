@@ -780,7 +780,6 @@ function crearTarjetaProducto(
 
             <!-- DISPONIBILIDAD -->
 
-           
 
 
             <!-- BOTÓN + RÁPIDO -->
