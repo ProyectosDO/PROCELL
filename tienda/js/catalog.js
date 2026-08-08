@@ -578,18 +578,21 @@ function crearTarjetaProducto(
     tarjeta.className = `
 
     bg-white
-    rounded-2xl
+    rounded-xl
+    sm:rounded-2xl
     overflow-hidden
     border
     border-gray-100
-    shadow-lg
+    shadow-md
+    sm:shadow-lg
 
     transition-all
     duration-300
 
-    hover:-translate-y-2
-    hover:shadow-2xl
-    hover:border-orange-300
+    active:scale-[0.98]
+    sm:hover:-translate-y-2
+    sm:hover:shadow-2xl
+    sm:hover:border-orange-300
 
     group
 
@@ -631,7 +634,8 @@ function crearTarjetaProducto(
 
         class="
             w-full
-            h-56
+            h-28
+            sm:h-56
             flex
             items-center
             justify-center
@@ -647,12 +651,14 @@ function crearTarjetaProducto(
 
             alt="${producto.name || "Producto"}"
 
+            loading="lazy"
+
             class="
     w-full
     h-full
     object-contain
     scale-110
-    group-hover:scale-125
+    sm:group-hover:scale-125
     transition
     duration-500
     cursor-pointer
@@ -674,12 +680,14 @@ function crearTarjetaProducto(
 
                 class="
                     w-full
-                    h-64
+                    h-28
+                    sm:h-64
                     flex
                     items-center
                     justify-center
                     bg-gray-100
-                    text-5xl
+                    text-3xl
+                    sm:text-5xl
                     cursor-pointer
                 "
 
@@ -719,10 +727,13 @@ function crearTarjetaProducto(
                 class="
                     bg-green-100
                     text-green-700
-                    px-3
-                    py-1
+                    px-2
+                    py-0.5
+                    sm:px-3
+                    sm:py-1
                     rounded-full
-                    text-xs
+                    text-[10px]
+                    sm:text-xs
                     font-semibold
                 "
 
@@ -745,10 +756,13 @@ function crearTarjetaProducto(
                 class="
                     bg-red-100
                     text-red-700
-                    px-3
-                    py-1
+                    px-2
+                    py-0.5
+                    sm:px-3
+                    sm:py-1
                     rounded-full
-                    text-xs
+                    text-[10px]
+                    sm:text-xs
                     font-semibold
                 "
 
@@ -789,8 +803,10 @@ function crearTarjetaProducto(
             <div
                 class="
                     absolute
-                    top-4
-                    left-4
+                    top-2
+                    left-2
+                    sm:top-4
+                    sm:left-4
                 "
             >
 
@@ -805,10 +821,10 @@ function crearTarjetaProducto(
 
            <div
            class="
-           p-4
+           p-3
+           sm:p-5
            flex
            flex-col
-           h-64
            "
            >
 
@@ -818,9 +834,12 @@ function crearTarjetaProducto(
                <p
                   class="
                   text-orange-500
-                  text-sm
+                  text-[11px]
+                  sm:text-sm
                   font-semibold
-                    h-5
+                    h-4
+                    sm:h-5
+                    truncate
                     "
                     >
                   ${producto.brand || "&nbsp;"}
@@ -832,13 +851,18 @@ function crearTarjetaProducto(
             <h3
 
                 class="
-                    text-3x1
+                    text-xs
+                    sm:text-lg
                     font-bold
                     text-gray-800
                     mt-1
                     cursor-pointer
                     hover:text-orange-500
                     transition
+                    line-clamp-2
+                    leading-snug
+                    min-h-[2.2em]
+                    sm:min-h-0
                 "
 
                 data-action="detalle"
@@ -854,10 +878,13 @@ function crearTarjetaProducto(
 
               <p
                   class="
-                      text-sm
+                      text-[11px]
+                      sm:text-sm
                     text-gray-500
                      mt-1
-                        h-5
+                        h-4
+                        sm:h-5
+                        truncate
                       "
                      >
                 ${producto.model || "&nbsp;"}
@@ -868,10 +895,12 @@ function crearTarjetaProducto(
             <p
 
                 class="
-                    text-xl
+                    text-base
+                    sm:text-2xl
                     font-extrabold
                     text-orange-500
-                    mt-4
+                    mt-2
+                    sm:mt-4
                 "
 
             >
@@ -889,8 +918,10 @@ function crearTarjetaProducto(
             class="
              flex
              items-center
-              gap-3
-              mt-auto
+              gap-2
+              sm:gap-3
+              mt-3
+              sm:mt-auto
               "
               >
 
@@ -901,19 +932,27 @@ function crearTarjetaProducto(
 
                     class="
                         add-to-cart
-                        w-10
-                        h-10
+                        w-9
+                        h-9
+                        sm:w-12
+                        sm:h-12
+                        flex-shrink-0
                         flex
                         items-center
                         justify-center
                         bg-orange-500
                         hover:bg-orange-600
+                        active:bg-orange-600
                         text-white
-                        rounded-xl
-                        text-2xl
+                        rounded-lg
+                        sm:rounded-xl
+                        text-lg
+                        sm:text-2xl
                         font-bold
                         transition
                         shadow-sm
+                        disabled:bg-gray-300
+                        disabled:cursor-not-allowed
                     "
 
                     title="Agregar al carrito"
@@ -940,20 +979,29 @@ function crearTarjetaProducto(
                     class="
                         buy-product
                         flex-1
-                        h-10
+                        h-9
+                        sm:h-12
                         bg-gray-900
                         hover:bg-orange-500
+                        active:bg-orange-500
                         text-white
-                        rounded-xl
-                        text-sm font-bold
+                        rounded-lg
+                        sm:rounded-xl
+                        font-bold
+                        text-[10px]
+                        sm:text-base
+                        tracking-tight
+                        sm:tracking-normal
+                        uppercase
                         transition
+                        px-1
                     "
 
                     data-id="${producto.id}"
 
                 >
 
-                    VER PRODUCTO
+                    Ver producto
 
                 </button>
 
@@ -1375,13 +1423,21 @@ async function cargarCategorias() {
 
             text-white
 
-            px-2
+            px-3
 
-            py-1
-             text-sm
-            rounded-lg
+            py-2
+
+            sm:px-4
+
+            rounded-xl
 
             font-semibold
+
+            text-sm
+
+            sm:text-base
+
+            whitespace-nowrap
 
             transition
 
@@ -1421,25 +1477,38 @@ async function cargarCategorias() {
 
 
                 boton.className = `
-    category-button
-    bg-white
-    text-gray-700
-    border
-    border-gray-200
-    hover:border-orange-500
-    hover:text-orange-500
-    active:bg-orange-500
-    active:text-white
-    focus:bg-orange-500
-    focus:text-white
-    px-2
-    py-1
-    text-sm
-    rounded-lg
 
-    font-semibold
-    transition
-`;
+                    category-button
+
+                    bg-white
+
+                    border
+
+                    border-gray-200
+
+                    hover:border-orange-500
+
+                    hover:text-orange-500
+
+                    px-3
+
+                    py-2
+
+                    sm:px-4
+
+                    rounded-xl
+
+                    font-semibold
+
+                    text-sm
+
+                    sm:text-base
+
+                    whitespace-nowrap
+
+                    transition
+
+                `;
 
 
                 boton.textContent =
