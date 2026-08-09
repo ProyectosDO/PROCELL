@@ -454,6 +454,35 @@ document.addEventListener(
     "DOMContentLoaded",
     function () {
 
+                // =============================================
+        // AGREGAR AL CARRITO
+        // =============================================
+
+        const modalAddToCart =
+            document.getElementById("modalAddToCart");
+
+        if (modalAddToCart) {
+
+            modalAddToCart.addEventListener(
+                "click",
+                function () {
+
+                    if (!productoSeleccionado) {
+
+                        console.error(
+                            "❌ No hay producto seleccionado."
+                        );
+
+                        return;
+                    }
+
+                    agregarAlCarrito(productoSeleccionado);
+
+                }
+            );
+
+        }
+
 
         // =============================================
         // CERRAR MODAL
