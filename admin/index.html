@@ -232,20 +232,16 @@
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-3 gap-2">
 
             <!-- AGREGAR PRODUCTO -->
 
             <button
                 type="button"
                 onclick="document.getElementById('addProductSection').scrollIntoView({ behavior: 'smooth', block: 'start' })"
-                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-3 px-3 rounded-xl transition"
+                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-1 px-1 rounded-xl transition"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path>
-                    <path d="m3.3 7 8.7 5 8.7-5"></path>
-                    <path d="M12 22V12"></path>
-                </svg>
+  
                 <span class="text-xs sm:text-sm">Agregar producto</span>
             </button>
 
@@ -254,12 +250,9 @@
             <button
                 type="button"
                 onclick="document.getElementById('adminProductsList').scrollIntoView({ behavior: 'smooth' })"
-                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-3 px-3 rounded-xl transition"
+                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-1 px-1 rounded-xl transition"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 20h9"></path>
-                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path>
-                </svg>
+
                 <span class="text-xs sm:text-sm">Actualizar producto</span>
             </button>
 
@@ -268,11 +261,9 @@
             <button
                 type="button"
                 onclick="window.scrollTo({ top: document.getElementById('categoriesSection').offsetTop - 140, behavior: 'smooth' })"
-                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-3 px-3 rounded-xl transition"
+                class="category-button flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2 bg-orange-50 hover:bg-orange-100 text-orange-600 font-bold py-1 px-1 rounded-xl transition"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path>
-                </svg>
+       
                 <span class="text-xs sm:text-sm">Categorías</span>
             </button>
 
@@ -293,7 +284,7 @@
     <!-- ================================================= -->
 
     <div id="addProductSection" class="mb-6 scroll-mt-48">
-        <h2 id="formTitle" class="text-2xl font-extrabold text-gray-900">
+        <h2 id="formTitle" class="text-xl font-extrabold text-gray-900">
             Agregar nuevo producto
         </h2>
         <p class="text-gray-500 mt-1">
@@ -540,7 +531,7 @@
     <div id="categoriesSection" class="bg-white rounded-2xl shadow-soft border border-gray-100 p-6 mb-16 scroll-mt-48">
 
         <div class="mb-5">
-            <h2 class="text-2xl font-extrabold text-gray-900">
+            <h2 class="text-xl font-extrabold text-gray-900">
                 Gestión de categorías
             </h2>
             <p class="text-gray-500 mt-1">
