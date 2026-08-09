@@ -305,6 +305,9 @@
                 ease;
 
         }
+        
+
+        
 
 
         @keyframes resultAppear {
@@ -336,7 +339,21 @@
 </head>
 
 
-<body class="bg-gray-50 text-gray-900">
+<body
+    class="
+        min-h-screen
+        bg-[#f8f8f7]
+    "
+    style="
+        background:
+            radial-gradient(
+                circle at 10% 0%,
+                rgba(249,115,22,0.06),
+                transparent 80%
+            ),
+            #f8f8f7;
+    "
+>
 
 
 <!-- =====================================================
@@ -1038,53 +1055,7 @@
                 "
             >
 
-                <a
-                    href="#productos"
-                    class="
-                        inline-flex
-                        items-center
-                        gap-2
-                        bg-white/100
-                        text-orange-600
-                        hover:bg-orange-50
-                        px-3
-                        py-2
-                        rounded-xl
-                        text-sm
-                        font-bold
-                        transition
-                        shadow-xl
-                    "
-                >
-
-                    Ver productos
-
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-
-                        <line
-                            x1="5"
-                            y1="12"
-                            x2="19"
-                            y2="12"
-                        />
-
-                        <polyline
-                            points="12 5 19 12 12 19"
-                        />
-
-                    </svg>
-
-                </a>
+                
 
             </div>
 
@@ -1092,59 +1063,64 @@
 
                     <!-- INDICADORES -->
 
-                    <div
-                        id="heroIndicators"
-                        class="
-                            absolute
-                            bottom-6
-                            right-7
-                            flex
-                            gap-2
-                        "
-                    >
+                   <!-- INDICADORES -->
 
-                        <button
-                            id="heroDot1"
-                            class="
-                                hero-indicator
-                                w-7
-                                h-2
-                                rounded-full
-                                bg-white
-                                transition
-                            "
-                            data-slide="0"
-                        ></button>
+<div
+    id="heroIndicators"
+    class="
+        absolute
+        bottom-11
+        right-8
+        flex
+        gap-2
+        z-30
+    "
+>
 
-
-                        <button
-                            id="heroDot2"
-                            class="
-                                hero-indicator
-                                w-2
-                                h-2
-                                rounded-full
-                                bg-white/50
-                                transition
-                            "
-                            data-slide="1"
-                        ></button>
+    <button
+        id="heroDot1"
+        class="
+            hero-indicator
+            w-7
+            h-2
+            rounded-full
+            bg-white
+            transition
+        "
+        data-slide="0"
+    ></button>
 
 
-                        <button
-                            id="heroDot3"
-                            class="
-                                hero-indicator
-                                w-2
-                                h-2
-                                rounded-full
-                                bg-white/50
-                                transition
-                            "
-                            data-slide="2"
-                        ></button>
+    <button
+        id="heroDot2"
+        class="
+            hero-indicator
+            w-2
+            h-2
+            rounded-full
+            bg-white/50
+            transition
+        "
+        data-slide="1"
+    ></button>
 
-                    </div>
+
+    <button
+        id="heroDot3"
+        class="
+            hero-indicator
+            w-2
+            h-2
+            rounded-full
+            bg-white/50
+            transition
+        "
+        data-slide="2"
+    ></button>
+
+    
+
+</div>
 
                 </div>
 
@@ -1189,7 +1165,7 @@
             bg-white
             rounded-2xl
             shadow-soft
-            p-3
+            p-2
             border
             border-gray-100
             transition
@@ -1420,17 +1396,17 @@
         "
     >
 
-        <div
-            id="categoryButtons"
-            class="
-                flex
-                flex-nowrap
-                justify-center
-                gap-3
-                min-w-max
-                px-2
-            "
-        >
+<div
+    id="categoryButtons"
+    class="
+        flex
+        gap-4
+        overflow-x-auto
+        pt-2
+        pb-7
+        px-1
+    "
+>
 
             <!-- Las categorías se cargarán automáticamente desde Supabase -->
 
@@ -1463,7 +1439,15 @@
 <section
     id="productos"
     class="
-        pb-24
+        bg-white
+        rounded-t-[2rem]
+        sm:rounded-t-[3rem]
+        -mt-10
+        sm:-mt-10
+        pt-8
+        sm:pt-10
+        pb-12
+        shadow-[0_-8px_30px_rgba(0,0,0,0.03)]
     "
 >
 
@@ -2580,6 +2564,50 @@ document.addEventListener(
 );
 
 </script>
+
+<!-- =====================================================
+     WHATSAPP FLOTANTE
+====================================================== -->
+
+<!-- =====================================================
+     WHATSAPP FLOTANTE
+====================================================== -->
+
+<a
+    href="https://wa.me/573007493965"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Contactar por WhatsApp"
+    class="
+        whatsapp-float
+        fixed
+        bottom-5
+        right-5
+        z-50
+        w-13
+        h-13
+        sm:w-16
+        sm:h-16
+        rounded-full
+        bg-[#25D366]
+        flex
+        items-center
+        justify-center
+        shadow-lg
+        transition-all
+        duration-300
+        hover:scale-110
+        active:scale-95
+    "
+>
+
+    <img
+        src="https://cdn.simpleicons.org/whatsapp/ffffff"
+        alt="WhatsApp"
+        class="w-7 h-7 sm:w-9 sm:h-9"
+    >
+
+</a>
 </body>
 
 </html>
