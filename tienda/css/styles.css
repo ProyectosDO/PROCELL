@@ -2,3 +2,1245 @@
     transition:
         opacity 1s ease-in-out;
 }
+
+input,
+textarea,
+select {
+    font-size: 16px !important;
+}
+/* =========================================================
+   WHATSAPP FLOTANTE - PROCELL
+   ========================================================= */
+
+.whatsapp-float {
+
+    position: fixed;
+
+    right: 18px;
+    bottom: 18px;
+
+    width: 56px;
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #25D366;
+    color: #ffffff;
+
+    border-radius: 50%;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.18);
+
+    z-index: 9998;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    /* Pulso del botón */
+    animation:
+        whatsappGlow 2.5s ease-in-out infinite;
+
+}
+
+
+/* =========================================================
+   LOGO WHATSAPP
+   ========================================================= */
+
+.whatsapp-float svg {
+
+    width: 28px;
+    height: 28px;
+
+    display: block;
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+/* =========================================================
+   EFECTO DE ARO
+   ========================================================= */
+
+.whatsapp-float::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 50%;
+
+    border: 2px solid #25D366;
+
+    pointer-events: none;
+
+    animation:
+        whatsappRing 2.5s ease-out infinite;
+
+}
+
+
+/* =========================================================
+   BRILLO SUAVE
+   ========================================================= */
+
+@keyframes whatsappGlow {
+
+    0% {
+
+        box-shadow:
+            0 6px 20px
+            rgba(37, 211, 102, 0.25);
+
+    }
+
+    50% {
+
+        box-shadow:
+            0 8px 28px
+            rgba(37, 211, 102, 0.45);
+
+    }
+
+    100% {
+
+        box-shadow:
+            0 6px 20px
+            rgba(37, 211, 102, 0.25);
+
+    }
+
+}
+
+
+/* =========================================================
+   ARO EXPANSIVO
+   ========================================================= */
+
+@keyframes whatsappRing {
+
+    0% {
+
+        transform: scale(1);
+
+        opacity: 0.7;
+
+    }
+
+    70% {
+
+        transform: scale(1.35);
+
+        opacity: 0;
+
+    }
+
+    100% {
+
+        transform: scale(1.35);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================================================
+   EFECTO ESCRITORIO
+   ========================================================= */
+
+@media (min-width: 641px) {
+
+    .whatsapp-float:hover {
+
+        transform:
+            translateY(-3px)
+            scale(1.07);
+
+        box-shadow:
+            0 12px 32px
+            rgba(37, 211, 102, 0.40);
+
+    }
+
+}
+
+
+/* =========================================================
+   EFECTO AL TOCAR
+   ========================================================= */
+
+.whatsapp-float:active {
+
+    transform: scale(0.90);
+
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+    .whatsapp-float {
+
+        width: 52px;
+        height: 52px;
+
+        right: 16px;
+        bottom: 16px;
+
+    }
+
+    .whatsapp-float svg {
+
+        width: 26px;
+        height: 26px;
+
+    }
+
+}
+/* =========================================================
+   PRUEBA / DISEÑO CATEGORÍAS PROCELL
+   ========================================================= */
+
+#categoryButtons button {
+    background: #ffffff !important;
+    color: #374151 !important;
+
+    border: 1px solid #e5e7eb !important;
+    border-radius: 14px !important;
+
+    padding: 11px 20px !important;
+
+    min-height: 44px !important;
+
+    font-family: "Manrope", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    white-space: nowrap !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.06) !important;
+
+    transition:
+        all 0.25s ease !important;
+}
+
+
+/* AL PASAR EL MOUSE */
+
+#categoryButtons button:hover {
+
+    background: #fff7ed !important;
+
+    color: #ea580c !important;
+
+    border-color: #fb923c !important;
+
+    transform: translateY(-3px) !important;
+
+    box-shadow:
+        0 8px 20px rgba(249, 115, 22, 0.15) !important;
+}
+
+
+/* AL PRESIONAR */
+
+#categoryButtons button:active {
+
+    transform: scale(0.94) !important;
+
+}
+
+
+/* =========================================================
+   BOTÓN ACTIVO
+   ========================================================= */
+
+#categoryButtons button.bg-orange-500,
+#categoryButtons button.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f97316,
+            #ea580c
+        ) !important;
+
+    color: #ffffff !important;
+
+    border-color: #f97316 !important;
+
+    box-shadow:
+        0 8px 22px rgba(249, 115, 22, 0.28) !important;
+
+}
+
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 640px) {
+
+    #categoryButtons {
+
+        justify-content: flex-start !important;
+
+    }
+
+    #categoryButtons button {
+
+        padding: 10px 16px !important;
+
+        min-height: 42px !important;
+
+        border-radius: 12px !important;
+
+        font-size: 13px !important;
+
+        box-shadow:
+            0 2px 8px rgba(0, 0, 0, 0.05) !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   PROCELL — MEJORA PREMIUM DEL HEADER
+   Pegar al FINAL de styles.css
+========================================================= */
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+header a[href="#inicio"] img {
+
+    transition:
+        transform 0.35s cubic-bezier(.22,1,.36,1),
+        filter 0.35s ease;
+
+}
+
+
+header a[href="#inicio"]:hover img {
+
+    transform:
+        scale(1.06)
+        rotate(-2deg);
+
+    filter:
+        drop-shadow(0 8px 12px rgba(249,115,22,0.18));
+
+}
+
+
+header a[href="#inicio"] h1 {
+
+    transition:
+        transform 0.3s ease,
+        letter-spacing 0.3s ease;
+
+}
+
+
+header a[href="#inicio"]:hover h1 {
+
+    transform:
+        translateX(2px);
+
+    letter-spacing:
+        0.01em;
+
+}
+
+
+/* =========================================================
+   MENÚ PRINCIPAL
+========================================================= */
+
+header nav a {
+
+    position:
+        relative;
+
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+
+}
+
+
+header nav a::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    bottom:
+        -7px;
+
+    width:
+        0;
+
+    height:
+        2px;
+
+    border-radius:
+        999px;
+
+    background:
+        #f97316;
+
+    transition:
+        width 0.3s cubic-bezier(.22,1,.36,1);
+
+}
+
+
+header nav a:hover {
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+header nav a:hover::after {
+
+    width:
+        100%;
+
+}
+
+
+/* =========================================================
+   BOTONES DE REDES SOCIALES DEL HEADER
+========================================================= */
+
+header a[aria-label="Facebook"],
+header a[aria-label="Instagram"],
+header a[aria-label="TikTok"] {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid rgba(0,0,0,0.04);
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.03);
+
+    transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+header a[aria-label="Facebook"]::before,
+header a[aria-label="Instagram"]::before,
+header a[aria-label="TikTok"]::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(249,115,22,0.10),
+            transparent 65%
+        );
+
+    opacity:
+        0;
+
+    transition:
+        opacity 0.25s ease;
+
+}
+
+
+header a[aria-label="Facebook"]:hover,
+header a[aria-label="Instagram"]:hover,
+header a[aria-label="TikTok"]:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        #fff7ed;
+
+    color:
+        #f97316;
+
+    border-color:
+        rgba(249,115,22,0.18);
+
+    box-shadow:
+        0 8px 18px rgba(249,115,22,0.12);
+
+}
+
+
+header a[aria-label="Facebook"]:hover::before,
+header a[aria-label="Instagram"]:hover::before,
+header a[aria-label="TikTok"]:hover::before {
+
+    opacity:
+        1;
+
+}
+
+
+/* =========================================================
+   CARRITO
+========================================================= */
+
+#cartButton {
+
+    position:
+        relative;
+
+    border:
+        1px solid rgba(249,115,22,0.12);
+
+    box-shadow:
+        0 3px 10px rgba(249,115,22,0.06);
+
+    transition:
+        transform 0.25s cubic-bezier(.22,1,.36,1),
+        background-color 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+#cartButton:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        #fff7ed;
+
+    border-color:
+        rgba(249,115,22,0.25);
+
+    box-shadow:
+        0 10px 22px rgba(249,115,22,0.14);
+
+}
+
+
+#cartButton:active {
+
+    transform:
+        translateY(-1px)
+        scale(0.96);
+
+}
+
+
+/* =========================================================
+   ICONO DEL CARRITO
+========================================================= */
+
+#cartButton svg {
+
+    transition:
+        transform 0.3s ease;
+
+}
+
+
+#cartButton:hover svg {
+
+    transform:
+        scale(1.08);
+
+}
+
+
+/* =========================================================
+   CONTADOR DEL CARRITO
+========================================================= */
+
+#cartCount {
+
+    border:
+        2px solid white;
+
+    box-shadow:
+        0 4px 10px rgba(249,115,22,0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+}
+
+
+#cartButton:hover #cartCount {
+
+    transform:
+        scale(1.08);
+
+    box-shadow:
+        0 5px 14px rgba(249,115,22,0.30);
+
+}
+
+
+/* =========================================================
+   WHATSAPP DEL HEADER
+========================================================= */
+
+header a[href*="wa.me"] {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    box-shadow:
+        0 7px 18px rgba(249,115,22,0.20);
+
+    transition:
+        transform 0.25s cubic-bezier(.22,1,.36,1),
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+
+}
+
+
+header a[href*="wa.me"]::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        -120%;
+
+    width:
+        80%;
+
+    height:
+        100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.20),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    transition:
+        left 0.55s ease;
+
+}
+
+
+header a[href*="wa.me"]:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 12px 25px rgba(249,115,22,0.28);
+
+}
+
+
+header a[href*="wa.me"]:hover::before {
+
+    left:
+        130%;
+
+}
+
+
+header a[href*="wa.me"]:active {
+
+    transform:
+        translateY(-1px)
+        scale(0.97);
+
+}
+
+
+/* =========================================================
+   FOCUS — ACCESIBILIDAD
+========================================================= */
+
+header a:focus-visible,
+header button:focus-visible {
+
+    outline:
+        3px solid rgba(249,115,22,0.25);
+
+    outline-offset:
+        3px;
+
+}
+
+
+/* =========================================================
+   HEADER EN MÓVIL
+========================================================= */
+
+@media (max-width: 767px) {
+
+    header a[aria-label="Facebook"],
+    header a[aria-label="Instagram"],
+    header a[aria-label="TikTok"] {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+        border-radius:
+            11px;
+
+    }
+
+
+    #cartButton {
+
+        width:
+            42px;
+
+        height:
+            42px;
+
+        border-radius:
+            12px;
+
+    }
+
+
+    #cartCount {
+
+        top:
+            -3px;
+
+        right:
+            -3px;
+
+    }
+
+
+    header a[href="#inicio"] {
+
+        gap:
+            0.55rem;
+
+    }
+
+
+    header a[href="#inicio"] img {
+
+        width:
+            52px;
+
+        height:
+            52px;
+
+    }
+
+
+    header a[href="#inicio"] h1 {
+
+        font-size:
+            1.15rem;
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCCIÓN DE MOVIMIENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    header a,
+    header button,
+    header img,
+    header h1 {
+
+        transition:
+            none !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   PROCELL — BOTÓN + AGREGAR AL CARRITO
+   Mejora visual sin cambiar su posición ni función
+========================================================= */
+
+
+/* =========================================================
+   BOTÓN
+========================================================= */
+
+.product-add-button {
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid rgba(249, 115, 22, 0.18);
+
+    box-shadow:
+        0 4px 12px rgba(249, 115, 22, 0.10);
+
+    transition:
+        transform 0.25s cubic-bezier(.22,1,.36,1),
+        background-color 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+}
+
+
+/* =========================================================
+   EFECTO HOVER
+========================================================= */
+
+.product-add-button:hover {
+
+    transform:
+        translateY(-2px)
+        scale(1.03);
+
+    background-color:
+        #f97316;
+
+    border-color:
+        #f97316;
+
+    box-shadow:
+        0 8px 20px rgba(249, 115, 22, 0.22);
+
+}
+
+
+/* =========================================================
+   EFECTO AL PRESIONAR
+========================================================= */
+
+.product-add-button:active {
+
+    transform:
+        translateY(0)
+        scale(0.94);
+
+    box-shadow:
+        0 3px 8px rgba(249, 115, 22, 0.15);
+
+}
+
+
+/* =========================================================
+   ICONO +
+========================================================= */
+
+.product-add-button svg {
+
+    transition:
+        transform 0.25s cubic-bezier(.22,1,.36,1);
+
+}
+
+
+.product-add-button:hover svg {
+
+    transform:
+        rotate(90deg)
+        scale(1.08);
+
+}
+
+
+/* =========================================================
+   BRILLO AL PASAR EL MOUSE
+========================================================= */
+
+.product-add-button::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    left:
+        -120%;
+
+    width:
+        80%;
+
+    height:
+        100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,0.25),
+            transparent
+        );
+
+    transform:
+        skewX(-20deg);
+
+    transition:
+        left 0.5s ease;
+
+}
+
+
+.product-add-button:hover::before {
+
+    left:
+        130%;
+
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+.product-add-button:focus-visible {
+
+    outline:
+        3px solid rgba(249, 115, 22, 0.25);
+
+    outline-offset:
+        3px;
+
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width: 640px) {
+
+    .product-add-button:hover {
+
+        transform:
+            none;
+
+        box-shadow:
+            0 5px 14px rgba(249, 115, 22, 0.16);
+
+    }
+
+
+    .product-add-button:active {
+
+        transform:
+            scale(0.92);
+
+    }
+
+}
+
+
+/* =========================================================
+   REDUCIR ANIMACIONES
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .product-add-button,
+    .product-add-button svg,
+    .product-add-button::before {
+
+        transition:
+            none !important;
+
+    }
+
+}
+
+
+/* =========================================================
+   PROCELL — TÍTULOS DE SECCIÓN
+========================================================= */
+
+
+/* =========================================================
+   TÍTULO: EXPLORA NUESTROS PRODUCTOS
+========================================================= */
+
+#categorias h2 {
+
+    position:
+        relative;
+
+    display:
+        inline-block;
+
+    color:
+        #111827;
+
+    letter-spacing:
+        -0.035em;
+
+    line-height:
+        1.15;
+
+    transition:
+        transform 0.3s ease;
+
+}
+
+
+/* Pequeño detalle naranja debajo */
+
+#categorias h2::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    bottom:
+        -10px;
+
+    width:
+        42px;
+
+    height:
+        3px;
+
+    border-radius:
+        999px;
+
+    background:
+        #f97316;
+
+    transform:
+        translateX(-50%);
+
+    transition:
+        width 0.3s ease;
+
+}
+
+
+#categorias h2:hover::after {
+
+    width:
+        65px;
+
+}
+
+
+/* =========================================================
+   ETIQUETA "CATEGORÍAS"
+========================================================= */
+
+#categorias span {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+}
+
+
+#categorias span::before {
+
+    content:
+        "";
+
+    width:
+        6px;
+
+    height:
+        6px;
+
+    border-radius:
+        50%;
+
+    background:
+        #f97316;
+
+    box-shadow:
+        0 0 0 4px rgba(249,115,22,0.10);
+
+}
+
+
+/* =========================================================
+   TÍTULO: PRODUCTOS
+========================================================= */
+
+#productos h2 {
+
+    position:
+        relative;
+
+    color:
+        #111827;
+
+    letter-spacing:
+        -0.035em;
+
+    line-height:
+        1.15;
+
+    transition:
+        transform 0.3s ease;
+
+}
+
+
+
+/* =========================================================
+   ETIQUETA "NUESTRO CATÁLOGO"
+========================================================= */
+
+#productos span {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+}
+
+
+#productos span::before {
+
+    content:
+        "";
+
+    width:
+        6px;
+
+    height:
+        6px;
+
+    border-radius:
+        50%;
+
+    background:
+        #f97316;
+
+    box-shadow:
+        0 0 0 4px rgba(249,115,22,0.10);
+
+}
+
+
+/* =========================================================
+   MÓVIL
+========================================================= */
+
+@media (max-width: 640px) {
+
+    #categorias h2,
+    #productos h2 {
+
+        letter-spacing:
+            -0.025em;
+
+    }
+
+
+    #categorias h2::after,
+    #productos h2::after {
+
+        width:
+            36px;
+
+        height:
+            2px;
+
+    }
+
+}
+
+
+
