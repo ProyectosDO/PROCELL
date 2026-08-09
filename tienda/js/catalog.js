@@ -781,64 +781,6 @@ function crearTarjetaProducto(
             <!-- DISPONIBILIDAD -->
 
 
-
-            <!-- BOTÓN + RÁPIDO -->
-
-            <button
-
-                class="
-                    add-to-cart
-                    absolute
-                    top-2
-                    right-2
-                    sm:top-4
-                    sm:right-4
-                    w-7
-                    h-7
-                    sm:w-10
-                    sm:h-10
-                    flex
-                    items-center
-                    justify-center
-                    bg-white
-                    sm:bg-green-500
-                    text-green-500
-                    sm:text-white
-                    hover:bg-green-500
-                    hover:text-white
-                    active:bg-green-500
-                    active:text-white
-                    rounded-full
-                    text-base
-                    sm:text-xl
-                    font-bold
-                    leading-none
-                    shadow-md
-                    transition
-                    disabled:bg-gray-200
-                    disabled:text-gray-400
-                    disabled:cursor-not-allowed
-                "
-
-                title="Agregar al carrito"
-
-                data-id="${producto.id}"
-
-                ${
-                    stock <= 0
-                        ? "disabled"
-                        : ""
-                }
-
-            >
-
-                +
-
-            </button>
-
-        </div>
-
-
         <!-- INFORMACIÓN -->
 
            <div
@@ -856,10 +798,10 @@ function crearTarjetaProducto(
                <p
                   class="
                   text-orange-500
-                  text-[10px]
+                  text-[13px]
                   sm:text-sm
                   font-semibold
-                    h-3.5
+                    h-4.5
                     sm:h-5
                     truncate
                     "
@@ -873,7 +815,7 @@ function crearTarjetaProducto(
             <h3
 
                 class="
-                    text-[13px]
+                    text-[15px]
                     sm:text-lg
                     font-bold
                     text-gray-800
@@ -913,59 +855,68 @@ function crearTarjetaProducto(
                 ${producto.model || "&nbsp;"}
              </p>
 
-            <!-- PRECIO -->
+            <!-- PRECIO + CARRITO -->
 
-            <p
+<div
+    class="
+        flex
+        items-center
+        justify-between
+        gap-2
+        mt-1.5
+        sm:mt-4
+    "
+>
 
-                class="
-                    text-[15px]
-                    sm:text-2xl
-                    font-extrabold
-                    text-orange-500
-                    mt-1.5
-                    sm:mt-4
-                "
+    <!-- PRECIO -->
 
-            >
+    <p
+        class="
+            text-[17px]
+            sm:text-2xl
+            font-extrabold
+            text-orange-500
+        "
+    >
 
-                ${formatearPrecio(
-                    producto.price
-                )}
+        ${formatearPrecio(
+            producto.price
+        )}
 
-            </p>
+    </p>
 
 
-            <!-- BOTÓN COMPRAR -->
+    <!-- BOTÓN + -->
 
-            <button
+    <button
+    class="
+        add-to-cart
+        w-8
+        h-8
+        sm:w-10
+        sm:h-10
+        rounded-full
+        flex
+        items-center
+        justify-center
+        bg-orange-500
+        text-white
+        text-xl
+        font-bold
+        shadow-md
+        active:scale-90
+        transition-transform
+    "
+    data-id="${producto.id}"
+    title="Agregar al carrito"
+>
+    +
+</button>
 
-                class="
-                    buy-product
-                    w-full
-                    h-8
-                    sm:h-12
-                    mt-2
-                    sm:mt-4
-                    bg-gray-900
-                    hover:bg-orange-500
-                    active:bg-orange-500
-                    text-white
-                    rounded-lg
-                    sm:rounded-xl
-                    font-semibold
-                    sm:font-bold
-                    text-[11px]
-                    sm:text-base
-                    transition
-                "
+</div>
 
-                data-id="${producto.id}"
 
-            >
-
-                Ver producto
-
-            </button>
+           
 
         </div>
 
@@ -1051,31 +1002,6 @@ function crearTarjetaProducto(
     );
 
 
-    // =================================================
-    // BOTÓN COMPRAR
-    // =================================================
-
-    const buyButton =
-        tarjeta.querySelector(
-            ".buy-product"
-        );
-
-
-    buyButton.addEventListener(
-        "click",
-        function (
-            event
-        ) {
-
-            event.stopPropagation();
-
-
-            abrirDetalleProducto(
-                producto
-            );
-
-        }
-    );
 
 
     return tarjeta;
