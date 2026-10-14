@@ -2169,14 +2169,7 @@ function obtenerDatosFormulario() {
                 .trim(),
 
 
-        model:
-
-            document
-                .getElementById(
-                    "model"
-                )
-                .value
-                .trim(),
+        model: window.ModelosAdmin.valor(),
 
 
         category:
@@ -2979,14 +2972,7 @@ async function editarProducto(
         "";
 
 
-    document
-        .getElementById(
-            "model"
-        )
-        .value =
-
-        producto.model ||
-        "";
+    window.ModelosAdmin.establecer(producto.model || "");
 
 
     document
@@ -3313,6 +3299,7 @@ function cancelarEdicion() {
 function limpiarFormulario() {
 
     productForm.reset();
+    window.ModelosAdmin.limpiar();
 
 
     // =============================================
@@ -3750,7 +3737,7 @@ function crearTarjetaAdmin(producto) {
                                     ?
 
                                     " · " +
-                                    producto.model
+                                    String(producto.model).split("|").map(function (m) { return m.trim(); }).filter(Boolean).join(", ")
 
                                     :
 

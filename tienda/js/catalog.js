@@ -852,7 +852,7 @@ function crearTarjetaProducto(
                         truncate
                       "
                      >
-                ${producto.model || "&nbsp;"}
+                ${textoModelos(producto) || "&nbsp;"}
              </p>
 
             <!-- PRECIO + CARRITO -->
@@ -979,13 +979,18 @@ function crearTarjetaProducto(
             }
 
 
+            if (obtenerModelos(producto).length > 1) {
+                abrirDetalleProducto(producto);
+                return;
+            }
+
             if (
                 typeof agregarAlCarrito ===
                 "function"
             ) {
-
                 agregarAlCarrito(
-                    producto
+                    producto,
+                    obtenerModelos(producto)[0] || ""
                 );
 
             }
@@ -1592,7 +1597,7 @@ function aplicarFiltros() {
 
                     ${producto.brand || ""}
 
-                    ${producto.model || ""}
+                    ${textoModelos(producto)}
 
                     ${producto.category || ""}
 

@@ -16,7 +16,13 @@ let carritoProductos = [];
 // AGREGAR PRODUCTO AL CARRITO
 // =====================================================
 
-function agregarAlCarrito(producto) {
+function claveItemCarrito(item) {
+    return claveCarrito(item.id, item.model || "");
+}
+
+function agregarAlCarrito(producto, modelo) {
+
+    modelo = modelo || "";
 
     console.log("➕ Agregando producto:", producto);
 
@@ -34,9 +40,8 @@ function agregarAlCarrito(producto) {
     const productoExistente =
         carritoProductos.find(function (item) {
 
-            return String(item.id) ===
-                String(producto.id);
-
+            return claveItemCarrito(item) ===
+                claveCarrito(producto.id, modelo);
         });
 
 
@@ -83,7 +88,7 @@ function agregarAlCarrito(producto) {
 
             brand: producto.brand || "",
 
-            model: producto.model || "",
+            model: modelo,
 
             price: Number(producto.price || 0),
 
@@ -359,8 +364,7 @@ function mostrarProductosCarrito() {
 
 
                     marcaHTML +
-
-
+                    (producto.model ? '<p class="text-sm text-gray-500">Modelo: ' + producto.model + '</p>' : '') +
                     '<p class="text-orange-500 font-bold mt-1">' +
 
                         formatearPrecioCarrito(
@@ -380,7 +384,7 @@ function mostrarProductosCarrito() {
                             'data-action="restar" ' +
 
                             'data-id="' +
-                            producto.id +
+                            claveItemCarrito(producto) +
                             '">' +
 
                             '−' +
@@ -402,7 +406,7 @@ function mostrarProductosCarrito() {
                             'data-action="sumar" ' +
 
                             'data-id="' +
-                            producto.id +
+                            claveItemCarrito(producto) +
                             '">' +
 
                             '+' +
@@ -417,7 +421,7 @@ function mostrarProductosCarrito() {
                             'data-action="eliminar" ' +
 
                             'data-id="' +
-                            producto.id +
+                            claveItemCarrito(producto) +
                             '">' +
 
                             'Eliminar' +
@@ -532,7 +536,7 @@ function cambiarCantidad(
         carritoProductos.find(
             function (item) {
 
-                return String(item.id) ===
+                return claveItemCarrito(item) ===
                     String(id);
 
             }
@@ -580,7 +584,7 @@ function eliminarDelCarrito(id) {
         carritoProductos.filter(
             function (producto) {
 
-                return String(producto.id) !==
+                return claveItemCarrito(producto) !==
                     String(id);
 
             }

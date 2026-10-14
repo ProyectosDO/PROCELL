@@ -16,6 +16,63 @@ let productoSeleccionado = null;
 // ABRIR DETALLE DEL PRODUCTO
 // =====================================================
 
+let modelosDisponibles = [];
+let modeloSeleccionado = "";
+
+function actualizarEnlaceWhatsAppDetalle() {
+    const a = document.getElementById("modalWhatsApp");
+    const p = productoSeleccionado;
+    if (!a || !p) return;
+    const mensaje =
+        `Hola, estoy interesado en el producto:
+
+${p.name || ""}
+
+Marca: ${p.brand || ""}
+
+Modelo: ${modeloSeleccionado || textoModelos(p)}
+
+Precio: ${formatearPrecioDetalle(p.price)}
+
+¿Está disponible?`;
+    a.href = `https://wa.me/573007493965?text=${encodeURIComponent(mensaje)}`;
+}
+
+function renderSelectorModelos() {
+    const cont = document.getElementById("modalModelSelector");
+    const opts = document.getElementById("modalModelOptions");
+    const err = document.getElementById("modalModelError");
+    if (!cont || !opts) return;
+
+    opts.innerHTML = "";
+    if (err) err.classList.add("hidden");
+
+    if (modelosDisponibles.length <= 1) {
+        cont.classList.add("hidden");
+        return;
+    }
+
+    cont.classList.remove("hidden");
+
+    modelosDisponibles.forEach(function (m) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = m;
+        const base = "px-3.5 py-2 rounded-xl border text-sm font-semibold transition ";
+        const off = base + "border-gray-200 bg-white text-gray-700 hover:border-orange-400";
+        const on = base + "border-orange-500 bg-orange-500 text-white";
+        b.className = off;
+        b.addEventListener("click", function () {
+            modeloSeleccionado = m;
+            opts.querySelectorAll("button").forEach(function (x) { x.className = off; });
+            b.className = on;
+            if (err) err.classList.add("hidden");
+            actualizarEnlaceWhatsAppDetalle();
+        });
+        opts.appendChild(b);
+    });
+}
+
 function abrirDetalleProducto(producto) {
 
     console.log(
@@ -104,10 +161,15 @@ function abrirDetalleProducto(producto) {
         producto.name || "Producto";
 
 
+    modelosDisponibles = obtenerModelos(producto);
+    modeloSeleccionado = modelosDisponibles.length === 1 ? modelosDisponibles[0] : "";
+
     modalModel.textContent =
-        producto.model
-            ? `Modelo: ${producto.model}`
+        modelosDisponibles.length === 1
+            ? `Modelo: ${modelosDisponibles[0]}`
             : "";
+
+    renderSelectorModelos();
 
 
     modalPrice.textContent =
@@ -312,7 +374,7 @@ ${producto.name || ""}
 
 Marca: ${producto.brand || ""}
 
-Modelo: ${producto.model || ""}
+Modelo: ${modeloSeleccionado || textoModelos(producto)}
 
 Precio: ${formatearPrecioDetalle(producto.price)}
 
@@ -476,7 +538,13 @@ document.addEventListener(
                         return;
                     }
 
-                    agregarAlCarrito(productoSeleccionado);
+                    if (modelosDisponibles.length > 1 && !modeloSeleccionado) {
+                        const err = document.getElementById("modalModelError");
+                        if (err) err.classList.remove("hidden");
+                        return;
+                    }
+
+                    agregarAlCarrito(productoSeleccionado, modeloSeleccionado);
 
                 }
             );
