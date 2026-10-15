@@ -166,7 +166,7 @@ function abrirDetalleProducto(producto) {
 
     modalModel.textContent =
         modelosDisponibles.length === 1
-            ? `Disponible en: ${modelosDisponibles[0]}`
+            ? `Disponible: ${modelosDisponibles[0]}`
             : "";
 
     renderSelectorModelos();
