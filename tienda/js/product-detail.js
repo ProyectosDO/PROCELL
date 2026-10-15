@@ -48,7 +48,15 @@ document.addEventListener("DOMContentLoaded", function () {
     zona.style.touchAction = "pan-y"; // permite scroll vertical, captura el horizontal
     img.setAttribute("draggable", "false");
 
-    let x0 = null, y0 = null;
+        let x0 = null, y0 = null;
+    let huboDeslizamiento = false;
+
+    img.style.cursor = "zoom-in";
+    img.addEventListener("click", function () {
+        if (huboDeslizamiento) { huboDeslizamiento = false; return; }
+        Visor.abrir(galeriaIndice);
+    });
+
 
     zona.addEventListener("touchstart", function (e) {
         if (e.touches.length !== 1) { x0 = null; return; }
@@ -62,10 +70,167 @@ document.addEventListener("DOMContentLoaded", function () {
         const dy = e.changedTouches[0].clientY - y0;
         x0 = null;
         if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                        huboDeslizamiento = true;
+            setTimeout(function () { huboDeslizamiento = false; }, 350);
             mostrarImagenGaleria(galeriaIndice + (dx < 0 ? 1 : -1));
         }
     }, { passive: true });
 });
+
+// ---- Zoom: visor a pantalla completa (pellizcar, doble toque, rueda del mouse) ----
+const Visor = (function () {
+
+    let overlay, img, contador;
+    let escala = 1, tx = 0, ty = 0;
+    let pinchDist = null, pinchEscala = 1;
+    let arrastre = null, ultimoToque = 0, inicioSwipe = null;
+    let visorIndice = 0;
+
+    function aplicar() {
+        img.style.transform = `translate(${tx}px, ${ty}px) scale(${escala})`;
+    }
+
+    function limitar() {
+        if (escala <= 1) { escala = 1; tx = 0; ty = 0; return; }
+        const mx = (img.clientWidth * (escala - 1)) / 2;
+        const my = (img.clientHeight * (escala - 1)) / 2;
+        tx = Math.max(-mx, Math.min(mx, tx));
+        ty = Math.max(-my, Math.min(my, ty));
+    }
+
+    function reiniciar() { escala = 1; tx = 0; ty = 0; aplicar(); }
+
+    function mostrar(i) {
+        if (!galeriaUrls.length) return;
+        visorIndice = (i + galeriaUrls.length) % galeriaUrls.length;
+        img.src = galeriaUrls[visorIndice];
+        contador.textContent = galeriaUrls.length > 1
+            ? (visorIndice + 1) + " / " + galeriaUrls.length : "";
+        reiniciar();
+    }
+
+    function cerrar() {
+        overlay.classList.add("hidden");
+        overlay.classList.remove("flex");
+        mostrarImagenGaleria(visorIndice); // deja la galería en la imagen vista
+    }
+
+    function crear() {
+        overlay = document.createElement("div");
+        overlay.className = "hidden fixed inset-0 z-[100] bg-black/95 items-center justify-center select-none";
+        overlay.style.touchAction = "none";
+        overlay.innerHTML =
+            '<button type="button" id="visorCerrar" aria-label="Cerrar" ' +
+            'class="absolute top-3 right-3 z-10 w-11 h-11 rounded-full bg-white/15 text-white text-2xl leading-none">×</button>' +
+            '<div id="visorContador" class="absolute top-4 left-1/2 -translate-x-1/2 text-white/80 text-sm font-semibold"></div>' +
+            '<img id="visorImg" alt="" draggable="false" class="max-w-full max-h-full object-contain" style="transform-origin:center center;will-change:transform">';
+        document.body.appendChild(overlay);
+
+        img = overlay.querySelector("#visorImg");
+        contador = overlay.querySelector("#visorContador");
+        overlay.querySelector("#visorCerrar").addEventListener("click", cerrar);
+
+        // Tocar el fondo (fuera de la imagen) cierra
+        overlay.addEventListener("click", function (e) { if (e.target === overlay) cerrar(); });
+
+        document.addEventListener("keydown", function (e) {
+            if (overlay.classList.contains("hidden")) return;
+            if (e.key === "Escape") cerrar();
+            if (e.key === "ArrowRight") mostrar(visorIndice + 1);
+            if (e.key === "ArrowLeft") mostrar(visorIndice - 1);
+        });
+
+        // Rueda del mouse (computador)
+        overlay.addEventListener("wheel", function (e) {
+            e.preventDefault();
+            escala = Math.min(5, Math.max(1, escala * (e.deltaY < 0 ? 1.15 : 1 / 1.15)));
+            limitar(); aplicar();
+        }, { passive: false });
+
+        // Doble clic (computador)
+        img.addEventListener("dblclick", function () {
+            escala = escala > 1 ? 1 : 2.5; limitar(); aplicar();
+        });
+
+        // Arrastrar con el mouse cuando hay zoom
+        img.addEventListener("mousedown", function (e) {
+            if (escala <= 1) return;
+            arrastre = { x: e.clientX - tx, y: e.clientY - ty };
+            e.preventDefault();
+        });
+        window.addEventListener("mousemove", function (e) {
+            if (!arrastre) return;
+            tx = e.clientX - arrastre.x; ty = e.clientY - arrastre.y;
+            limitar(); aplicar();
+        });
+        window.addEventListener("mouseup", function () { arrastre = null; });
+
+        // Táctil
+        overlay.addEventListener("touchstart", function (e) {
+            if (e.touches.length === 2) {
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                pinchDist = Math.hypot(dx, dy);
+                pinchEscala = escala;
+                inicioSwipe = null; arrastre = null;
+            } else if (e.touches.length === 1) {
+                const t = e.touches[0];
+                inicioSwipe = { x: t.clientX, y: t.clientY };
+                arrastre = { x: t.clientX - tx, y: t.clientY - ty };
+            }
+        }, { passive: true });
+
+        overlay.addEventListener("touchmove", function (e) {
+            if (e.touches.length === 2 && pinchDist) {
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                escala = Math.min(5, Math.max(1, pinchEscala * Math.hypot(dx, dy) / pinchDist));
+                limitar(); aplicar();
+            } else if (e.touches.length === 1 && arrastre && escala > 1) {
+                tx = e.touches[0].clientX - arrastre.x;
+                ty = e.touches[0].clientY - arrastre.y;
+                limitar(); aplicar();
+            }
+        }, { passive: true });
+
+        overlay.addEventListener("touchend", function (e) {
+            if (e.touches.length < 2) pinchDist = null;
+            if (e.touches.length > 0) return;
+
+            const t = e.changedTouches[0];
+
+            // Doble toque: alternar zoom
+            const ahora = Date.now();
+            if (ahora - ultimoToque < 300) {
+                escala = escala > 1 ? 1 : 2.5; limitar(); aplicar();
+                ultimoToque = 0; inicioSwipe = null; arrastre = null;
+                return;
+            }
+            ultimoToque = ahora;
+
+            // Deslizar para cambiar imagen (solo sin zoom)
+            if (inicioSwipe && escala === 1 && galeriaUrls.length > 1) {
+                const dx = t.clientX - inicioSwipe.x;
+                const dy = t.clientY - inicioSwipe.y;
+                if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                    mostrar(visorIndice + (dx < 0 ? 1 : -1));
+                    ultimoToque = 0;
+                }
+            }
+            inicioSwipe = null; arrastre = null;
+        }, { passive: true });
+    }
+
+    function abrir(i) {
+        if (!galeriaUrls.length) return;
+        if (!overlay) crear();
+        overlay.classList.remove("hidden");
+        overlay.classList.add("flex");
+        mostrar(i);
+    }
+
+    return { abrir: abrir };
+})();
 
 let modelosDisponibles = [];
 let modeloSeleccionado = "";
@@ -229,14 +394,21 @@ function abrirDetalleProducto(producto) {
         );
 
 
-    modalDescription.textContent =
-        producto.description ||
-        "Sin descripción disponible.";
+    const textoDescripcion = (producto.description || "").trim();
+    const textoCaracteristicas = (producto.specifications || "").trim();
+
+    modalDescription.textContent = textoDescripcion;
+    modalDescription.classList.toggle("hidden", !textoDescripcion);
+    document.getElementById("modalDescriptionTitle")
+        .classList.toggle("hidden", !textoDescripcion);
 
 
-    modalSpecifications.textContent =
-        producto.specifications ||
-        "No hay características disponibles.";
+    modalSpecifications.textContent = textoCaracteristicas;
+    modalSpecifications.classList.toggle("hidden", !textoCaracteristicas);
+    document.getElementById("modalSpecificationsTitle")
+        .classList.toggle("hidden", !textoCaracteristicas);
+    document.getElementById("modalDivider")
+        .classList.toggle("hidden", !textoDescripcion && !textoCaracteristicas);
 
 
     // =================================================
