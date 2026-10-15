@@ -16,6 +16,57 @@ let productoSeleccionado = null;
 // ABRIR DETALLE DEL PRODUCTO
 // =====================================================
 
+// ---- Galería: cambiar imagen (miniaturas y deslizar con el dedo) ----
+let galeriaUrls = [];
+let galeriaMiniaturas = [];
+let galeriaIndice = 0;
+
+function mostrarImagenGaleria(indice) {
+    if (!galeriaUrls.length) return;
+
+    galeriaIndice = (indice + galeriaUrls.length) % galeriaUrls.length;
+
+    const img = document.getElementById("modalMainImage");
+    if (img) img.src = galeriaUrls[galeriaIndice];
+
+    galeriaMiniaturas.forEach(function (t, i) {
+        t.classList.toggle("border-orange-500", i === galeriaIndice);
+        t.classList.toggle("border-gray-200", i !== galeriaIndice);
+    });
+
+    const activa = galeriaMiniaturas[galeriaIndice];
+    if (activa && activa.scrollIntoView) {
+        activa.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const img = document.getElementById("modalMainImage");
+    if (!img) return;
+
+    const zona = img.parentElement || img;
+    zona.style.touchAction = "pan-y"; // permite scroll vertical, captura el horizontal
+    img.setAttribute("draggable", "false");
+
+    let x0 = null, y0 = null;
+
+    zona.addEventListener("touchstart", function (e) {
+        if (e.touches.length !== 1) { x0 = null; return; }
+        x0 = e.touches[0].clientX;
+        y0 = e.touches[0].clientY;
+    }, { passive: true });
+
+    zona.addEventListener("touchend", function (e) {
+        if (x0 === null || galeriaUrls.length < 2) return;
+        const dx = e.changedTouches[0].clientX - x0;
+        const dy = e.changedTouches[0].clientY - y0;
+        x0 = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+            mostrarImagenGaleria(galeriaIndice + (dx < 0 ? 1 : -1));
+        }
+    }, { passive: true });
+});
+
 let modelosDisponibles = [];
 let modeloSeleccionado = "";
 
@@ -231,6 +282,10 @@ function abrirDetalleProducto(producto) {
         "";
 
 
+    galeriaUrls = [];
+    galeriaMiniaturas = [];
+    galeriaIndice = 0;
+
     const imagenes =
         producto.imagenes || [];
 
@@ -309,13 +364,14 @@ function abrirDetalleProducto(producto) {
                 `;
 
 
+                const posicion = galeriaUrls.length;
+                galeriaUrls.push(url);
+                galeriaMiniaturas.push(thumbnail);
+
                 thumbnail.addEventListener(
                     "click",
                     function () {
-
-                        modalMainImage.src =
-                            url;
-
+                        mostrarImagenGaleria(posicion);
                     }
                 );
 
@@ -323,9 +379,10 @@ function abrirDetalleProducto(producto) {
                 modalThumbnails.appendChild(
                     thumbnail
                 );
-
             }
         );
+
+        mostrarImagenGaleria(0);
 
     }
 
