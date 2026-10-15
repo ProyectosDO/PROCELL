@@ -575,9 +575,7 @@ function crearTarjetaProducto(
         );
 
 
-    tarjeta.className = `
-
-    bg-white
+    tarjeta.className = ` flex flex-col h-full bg-white
     rounded-xl
     sm:rounded-2xl
     overflow-hidden
@@ -789,6 +787,7 @@ function crearTarjetaProducto(
            sm:p-5
            flex
            flex-col
+           flex-1
            "
            >
 
@@ -801,8 +800,7 @@ function crearTarjetaProducto(
                   text-[13px]
                   sm:text-sm
                   font-semibold
-                    h-4.5
-                    sm:h-5
+                    min-h-[1.25rem]
                     truncate
                     "
                     >
@@ -825,8 +823,7 @@ function crearTarjetaProducto(
                     transition
                     line-clamp-2
                     leading-snug
-                    min-h-[2.1em]
-                    sm:min-h-0
+                    min-h-[2.75em]
                 "
 
                 data-action="detalle"
@@ -842,13 +839,13 @@ function crearTarjetaProducto(
 
               <p
                   class="
-                      text-[10px]
+                      text-[11px]
                       sm:text-sm
                     text-gray-500
                      mt-0.5
                      sm:mt-1
-                        h-3.5
-                        sm:h-5
+                        min-h-[1rem]
+                        sm:min-h-[1.25rem]
                         truncate
                       "
                      >
@@ -863,8 +860,9 @@ function crearTarjetaProducto(
         items-center
         justify-between
         gap-2
-        mt-1.5
-        sm:mt-4
+        mt-auto
+        pt-2
+        sm:pt-4
     "
 >
 
