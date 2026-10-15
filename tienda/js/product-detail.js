@@ -30,7 +30,7 @@ ${p.name || ""}
 
 Marca: ${p.brand || ""}
 
-Modelo: ${modeloSeleccionado || textoModelos(p)}
+Opción: ${modeloSeleccionado || textoModelos(p)}
 
 Precio: ${formatearPrecioDetalle(p.price)}
 
@@ -166,7 +166,7 @@ function abrirDetalleProducto(producto) {
 
     modalModel.textContent =
         modelosDisponibles.length === 1
-            ? `Modelo: ${modelosDisponibles[0]}`
+            ? `Disponible en: ${modelosDisponibles[0]}`
             : "";
 
     renderSelectorModelos();
@@ -374,7 +374,7 @@ ${producto.name || ""}
 
 Marca: ${producto.brand || ""}
 
-Modelo: ${modeloSeleccionado || textoModelos(producto)}
+Opción: ${modeloSeleccionado || textoModelos(producto)}
 
 Precio: ${formatearPrecioDetalle(producto.price)}
 

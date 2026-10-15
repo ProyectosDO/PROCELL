@@ -364,7 +364,7 @@ function mostrarProductosCarrito() {
 
 
                     marcaHTML +
-                    (producto.model ? '<p class="text-sm text-gray-500">Modelo: ' + producto.model + '</p>' : '') +
+                    (producto.model ? '<p class="text-sm text-gray-500">Opción: ' + producto.model + '</p>' : '') +
                     '<p class="text-orange-500 font-bold mt-1">' +
 
                         formatearPrecioCarrito(

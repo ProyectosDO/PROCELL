@@ -243,7 +243,7 @@ function enviarPedidoWhatsApp() {
 
                 mensaje +=
 
-                    "Modelo: " +
+                    "Opción: " +
 
                     producto.model +
 

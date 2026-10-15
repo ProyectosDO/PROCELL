@@ -1246,304 +1246,105 @@ function formatearTamaño(
 // COMPRIMIR IMAGEN
 // =====================================================
 
-async function comprimirImagen(
-    file
-) {
-
-    return new Promise(
-
-        function (
-            resolve,
-            reject
-        ) {
-
-            const reader =
-                new FileReader();
-
-
-            reader.onload =
-                function (
-                    event
-                ) {
-
-                    const img =
-                        new Image();
-
-
-                    img.onload =
-                        function () {
-
-                            let width =
-                                img.width;
-
-
-                            let height =
-                                img.height;
-
-
-                            // =====================================
-                            // REDUCIR ANCHO
-                            // =====================================
-
-                            if (
-                                width >
-                                MAX_IMAGE_WIDTH
-                            ) {
-
-                                const ratio =
-
-                                    MAX_IMAGE_WIDTH /
-                                    width;
-
-
-                                width =
-                                    MAX_IMAGE_WIDTH;
-
-
-                                height =
-
-                                    Math.round(
-
-                                        height *
-                                        ratio
-
-                                    );
-
-                            }
-
-
-                            // =====================================
-                            // CANVAS
-                            // =====================================
-
-                            const canvas =
-                                document.createElement(
-                                    "canvas"
-                                );
-
-
-                            canvas.width =
-                                width;
-
-
-                            canvas.height =
-                                height;
-
-
-                            const ctx =
-                                canvas.getContext(
-                                    "2d"
-                                );
-
-
-                            ctx.drawImage(
-
-                                img,
-
-                                0,
-
-                                0,
-
-                                width,
-
-                                height
-
-                            );
-
-
-                            // =====================================
-                            // CALIDAD
-                            // =====================================
-
-                            let quality =
-                                0.85;
-
-
-                            // =====================================
-                            // INTENTAR COMPRESIÓN
-                            // =====================================
-
-                            function intentarCompresion() {
-
-                                canvas.toBlob(
-
-                                    function (
-                                        blob
-                                    ) {
-
-                                        if (!blob) {
-
-                                            reject(
-
-                                                new Error(
-
-                                                    "No se pudo comprimir la imagen."
-
-                                                )
-
-                                            );
-
-                                            return;
-
-                                        }
-
-
-                                        const sizeKB =
-
-                                            blob.size /
-                                            1024;
-
-
-                                        console.log(
-
-                                            "📦 Tamaño comprimido:",
-
-                                            sizeKB.toFixed(1),
-
-                                            "KB"
-
-                                        );
-
-
-                                        // =====================================
-                                        // TERMINAR
-                                        // =====================================
-
-                                        if (
-
-                                            sizeKB <=
-                                            TARGET_SIZE_KB
-
-                                            ||
-
-                                            quality <=
-                                            0.35
-
-                                        ) {
-
-                                            const nombre =
-
-                                                file.name
-
-                                                    .replace(
-
-                                                        /\.[^/.]+$/,
-
-                                                        ""
-
-                                                    )
-
-                                                +
-
-                                                ".webp";
-
-
-                                            const compressedFile =
-
-                                                new File(
-
-                                                    [
-
-                                                        blob
-
-                                                    ],
-
-                                                    nombre,
-
-                                                    {
-
-                                                        type:
-                                                            "image/webp"
-
-                                                    }
-
-                                                );
-
-
-                                            resolve(
-
-                                                compressedFile
-
-                                            );
-
-
-                                            return;
-
-                                        }
-
-
-                                        // =====================================
-                                        // BAJAR CALIDAD
-                                        // =====================================
-
-                                        quality -=
-                                            0.05;
-
-
-                                        intentarCompresion();
-
-                                    },
-
-                                    "image/webp",
-
-                                    quality
-
-                                );
-
-                            }
-
-
-                            intentarCompresion();
-
-                        };
-
-
-                    img.onerror =
-                        function () {
-
-                            reject(
-
-                                new Error(
-
-                                    "No se pudo leer la imagen."
-
-                                )
-
-                            );
-
-                        };
-
-
-                    img.src =
-                        event.target.result;
-
-                };
-
-
-            reader.onerror =
-                function () {
-
-                    reject(
-
-                        new Error(
-
-                            "Error al cargar la imagen."
-
-                        )
-
-                    );
-
-                };
-
-
-            reader.readAsDataURL(
-                file
+async function comprimirImagen(file) {
+
+    // Cargar imagen
+    const img = await new Promise(function (resolve, reject) {
+        const url = URL.createObjectURL(file);
+        const el = new Image();
+        el.onload = function () { URL.revokeObjectURL(url); resolve(el); };
+        el.onerror = function () {
+            URL.revokeObjectURL(url);
+            reject(new Error("No se pudo leer la imagen."));
+        };
+        el.src = url;
+    });
+
+    function toBlob(canvas, type, quality) {
+        return new Promise(function (resolve) {
+            canvas.toBlob(resolve, type, quality);
+        });
+    }
+
+    let width = img.naturalWidth || img.width;
+    let height = img.naturalHeight || img.height;
+
+    if (width > MAX_IMAGE_WIDTH) {
+        height = Math.round(height * MAX_IMAGE_WIDTH / width);
+        width = MAX_IMAGE_WIDTH;
+    }
+
+    const MIN_WIDTH = 500;
+    let mejor = null;
+
+    // Reduce calidad y, si hace falta, también las dimensiones,
+    // hasta llegar al peso objetivo.
+    while (true) {
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+
+        // Fondo blanco (evita fondo negro al convertir PNG con transparencia a JPEG)
+        ctx.fillStyle = "#ffffff";
+        ctx.fillRect(0, 0, width, height);
+        ctx.drawImage(img, 0, 0, width, height);
+
+        for (let quality = 0.85; quality >= 0.4; quality -= 0.05) {
+
+            // Intentar WebP; algunos navegadores (Safari/iPhone) no lo soportan
+            // y devuelven PNG (muy pesado), en ese caso usar JPEG.
+            let blob = await toBlob(canvas, "image/webp", quality);
+
+            if (!blob || blob.type !== "image/webp") {
+                blob = await toBlob(canvas, "image/jpeg", quality);
+            }
+
+            if (!blob) {
+                throw new Error("No se pudo comprimir la imagen.");
+            }
+
+            if (!mejor || blob.size < mejor.size) {
+                mejor = blob;
+            }
+
+            console.log(
+                "📦 Tamaño comprimido:",
+                (blob.size / 1024).toFixed(1), "KB",
+                blob.type, width + "x" + height,
+                "calidad", quality.toFixed(2)
             );
 
+            if (blob.size / 1024 <= TARGET_SIZE_KB) {
+                mejor = blob;
+                return construirArchivo(file, mejor);
+            }
         }
 
-    );
+        if (width <= MIN_WIDTH) {
+            break;
+        }
 
+        // Reducir dimensiones 20% y volver a intentar
+        width = Math.max(MIN_WIDTH, Math.round(width * 0.8));
+        height = Math.round(height * width / canvas.width);
+    }
+
+    return construirArchivo(file, mejor);
+}
+
+
+function construirArchivo(original, blob) {
+
+    const ext = blob.type === "image/jpeg" ? "jpg" : "webp";
+
+    return new File(
+        [blob],
+        original.name.replace(/\.[^/.]+$/, "") + "." + ext,
+        { type: blob.type }
+    );
 }
 
 
@@ -1848,7 +1649,7 @@ async function crearProducto() {
 
             const fileName =
 
-                `${productId}/${Date.now()}_${i + 1}_${Math.random().toString(36).substring(2, 8)}.webp`;
+                `${productId}/${Date.now()}_${i + 1}_${Math.random().toString(36).substring(2, 8)}.${compressedImage.type === "image/jpeg" ? "jpg" : "webp"}`;
 
 
             // =============================================
@@ -1880,8 +1681,7 @@ async function crearProducto() {
 
                     {
 
-                        contentType:
-                            "image/webp",
+                        contentType: compressedImage.type || "image/webp",
 
                         upsert:
                             false
@@ -2476,7 +2276,7 @@ async function actualizarProducto(
 
             const fileName =
 
-                `${productId}/${Date.now()}_${i + 1}_${Math.random().toString(36).substring(2, 8)}.webp`;
+                `${productId}/${Date.now()}_${i + 1}_${Math.random().toString(36).substring(2, 8)}.${compressedImage.type === "image/jpeg" ? "jpg" : "webp"}`;
 
 
             // =========================================
@@ -2508,8 +2308,7 @@ async function actualizarProducto(
 
                     {
 
-                        contentType:
-                            "image/webp",
+                        contentType: compressedImage.type || "image/webp",
 
                         upsert:
                             false
